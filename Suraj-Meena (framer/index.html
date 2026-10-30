@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suraj Meena | Frame Flicks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<style>
+:root {
+  --bg: #05050A;
+  --bg2: #0C0C14;
+  --bg3: #12121C;
+  --violet: #7C3AED;
+  --violet2: #A855F7;
+  --cyan: #06B6D4;
+  --pink: #EC4899;
+  --text: #F0EEF8;
+  --muted: #8B88A0;
+  --dim: #3A3850;
+  --border: rgba(124, 58, 237, 0.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+h1, h2, h3, h4, .bebas { font-family: 'Bebas Neue', sans-serif; font-weight: 400; letter-spacing: 0.05em; }
+a { color: inherit; text-decoration: none; }
+li { list-style: none; }
+
+/* Noise Overlay */
+.noise {
+  position: fixed; inset: 0; pointer-events: none; z-index: 300; opacity: 0.025;
+  background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+  background-size: 180px;
+}
+
+/* Custom Cursor */
+#cursor {
+  position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+  background: var(--violet2); border-radius: 50%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference; pointer-events: none; z-index: 1000;
+}
+#cursor-ring {
+  position: fixed; top: 0; left: 0; width: 36px; height: 36px;
+  border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none; z-index: 999;
+}
+
+/* Sparks */
+.spark {
+  position: fixed; width: 6px; height: 6px; border-radius: 50%;
+  pointer-events: none; z-index: 998;
+  animation: sparkfly 0.7s forwards ease-out;
+}
+@keyframes sparkfly {
+  0% { opacity: 1; transform: scale(1) translate(0, 0); }
+  100% { opacity: 0; transform: scale(0) translate(var(--dx), var(--dy)); }
+}
+
+/* Nav */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 200;
+  background: rgba(5, 5, 10, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.08);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.5rem 5%;
+}
+.logo { font-size: 2rem; background: linear-gradient(90deg, var(--violet), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-links { display: flex; gap: 2rem; }
+.nav-link { position: relative; font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text); }
+.nav-link::after {
+  content: ''; position: absolute; left: 0; bottom: -4px;
+  width: 0; height: 2px; background: var(--violet); transition: width 0.3s;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* Sections Common */
+section { padding: 8rem 5%; max-width: 1400px; margin: 0 auto; position: relative; }
+.divider { background: linear-gradient(90deg, transparent, var(--violet), var(--cyan), transparent); height: 1px; opacity: 0.3; width: 100%; }
+.section-label { color: var(--cyan); font-weight: 500; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 1rem; display: block; }
+.section-title { font-size: clamp(3rem, 5vw, 4.5rem); margin-bottom: 3rem; }
+.section-title span { background: linear-gradient(to right, var(--violet), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* Aurora Background */
+.aurora-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+.aurora { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.4; }
+.aurora-1 { background: var(--violet); width: 60vw; height: 60vw; top: -10%; left: -10%; animation: aurora1 15s infinite alternate ease-in-out; }
+.aurora-2 { background: var(--cyan); width: 50vw; height: 50vw; top: 40%; right: -20%; animation: aurora2 20s infinite alternate ease-in-out; }
+.aurora-3 { background: var(--pink); width: 40vw; height: 40vw; bottom: -10%; left: 20%; animation: aurora3 18s infinite alternate ease-in-out; }
+.grid-overlay {
+  position: absolute; inset: 0; opacity: 0.15;
+  background-image: radial-gradient(var(--text) 1px, transparent 1px); background-size: 30px 30px;
+}
+@keyframes aurora1 { 0%,100% { transform: translate(-10%,0) scale(1.1) rotate(0deg) } 50% { transform: translate(10%,5%) scale(1.2) rotate(5deg) } }
+@keyframes aurora2 { 0%,100% { transform: translate(10%,0) scale(1) rotate(0deg) } 50% { transform: translate(-8%,-8%) scale(1.15) rotate(-4deg) } }
+@keyframes aurora3 { 0%,100% { transform: translate(0,10%) scale(1.05) } 50% { transform: translate(5%,-5%) scale(0.95) } }
+
+/* Hero */
+#hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 100px; position: relative; }
+.blob-decor { position: absolute; top: 15%; right: 10%; width: 300px; height: 300px; background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(6,182,212,0.2)); border: 1px solid var(--border); animation: blobmove 10s infinite linear; backdrop-filter: blur(5px); z-index: 0; }
+@keyframes blobmove { 0%,100%{ border-radius:60% 40% 70% 30%/60% 30% 70% 40% } 25%{ border-radius:40% 60% 30% 70%/40% 70% 30% 60% } 50%{ border-radius:70% 30% 50% 50%/50% 50% 30% 70% } 75%{ border-radius:30% 70% 60% 40%/30% 60% 70% 40% } }
+
+.eyebrow { color: var(--cyan); font-weight: 500; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; letter-spacing: 2px; text-transform: uppercase; z-index: 1; position: relative; }
+.eyebrow::before { content: ''; width: 40px; height: 2px; background: var(--cyan); }
+
+.hero-name { position: relative; z-index: 1; line-height: 0.9; margin-bottom: 1rem; }
+.name-1 { font-size: clamp(70px, 11vw, 150px); animation: fadeUp 1s ease-out; }
+.name-2 { font-size: clamp(70px, 11vw, 150px); background: linear-gradient(90deg, var(--violet), var(--cyan), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; display: inline-block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+
+/* Glitch */
+.glitch-wrapper { position: relative; display: inline-block; }
+.glitch-ghost { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; mix-blend-mode: screen; }
+@keyframes glitch-anim {
+  0%, 90% { opacity: 0; transform: translate(0); clip-path: inset(0 0 0 0); }
+  92% { opacity: 1; transform: translate(-4px, 2px); clip-path: inset(10% 0 50% 0); text-shadow: -2px 0 red; }
+  94% { opacity: 1; transform: translate(4px, -2px); clip-path: inset(40% 0 20% 0); text-shadow: 2px 0 blue; }
+  96% { opacity: 1; transform: translate(-2px, 0); clip-path: inset(80% 0 5% 0); text-shadow: none; }
+  98% { opacity: 1; transform: translate(2px, 2px); clip-path: inset(20% 0 60% 0); }
+  100% { opacity: 0; transform: translate(0); clip-path: inset(0 0 0 0); }
+}
+.name-2 .ghost1, .name-2 .ghost2 { background: inherit; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: glitch-anim 4s infinite; }
+.name-2 .ghost2 { animation-delay: 2s; }
+
+.hero-sub { font-size: clamp(1.5rem, 3vw, 2.5rem); color: var(--muted); letter-spacing: 0.1em; margin-bottom: 2rem; z-index: 1; position: relative; }
+.hero-bio { max-width: 600px; font-size: 1.1rem; line-height: 1.6; color: var(--text); opacity: 0.9; margin-bottom: 3rem; z-index: 1; position: relative; }
+
+.cta-group { display: flex; gap: 1.5rem; z-index: 1; position: relative; flex-wrap: wrap; }
+.btn {
+  padding: 1rem 2.5rem; font-weight: 500; border-radius: 50px; font-size: 1.1rem;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+  display: inline-flex; align-items: center; justify-content: center; text-align: center;
+}
+.btn-primary { background: linear-gradient(135deg, var(--violet), var(--violet2)); color: white; border: none; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3); }
+.btn-primary:hover { box-shadow: 0 8px 25px rgba(124, 58, 237, 0.5); }
+.btn-outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.2); }
+.btn-outline:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.4); }
+.magnetic { display: inline-block; }
+
+.scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.7; z-index: 1; }
+.scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--cyan), transparent); animation: pulse 2s infinite; }
+.scroll-text { font-size: 0.75rem; writing-mode: vertical-lr; letter-spacing: 2px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:.8} }
+
+.circular-text { position: absolute; top: 15%; right: 5%; width: 150px; height: 150px; animation: float 6s infinite ease-in-out; z-index: 10; display: none; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@media(min-width: 1024px) { .circular-text { display: block; } }
+
+/* Reveal */
+.revealEl { opacity: 0; transform: translateY(32px); transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1); }
+.revealEl.show { opacity: 1; transform: none; }
+
+/* About */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+.bio { font-size: 1.1rem; line-height: 1.8; color: var(--muted); display: flex; flex-direction: column; gap: 1.5rem; }
+.bio p { color: var(--text); opacity: 0.85; }
+.stats-row { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+.stat-item h3 { font-size: 3rem; color: var(--cyan); margin-bottom: 0.2rem; }
+.stat-item p { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+
+.skills-wrapper { display: flex; flex-direction: column; gap: 2rem; }
+.skill-item .skill-info { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.95rem; }
+.skill-bar-bg { width: 100%; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.skill-bar-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--violet), var(--cyan)); border-radius: 3px; transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+.tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2rem; }
+.tag { padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: 50px; font-size: 0.85rem; background: rgba(124,58,237,0.05); color: var(--text); }
+
+/* Work */
+.work-section { background: var(--bg2); }
+.video-wrapper { width: 100%; max-width: 1000px; margin: 0 auto 4rem auto; position: relative; padding-bottom: 56.25%; /* 16:9 */ border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+.video-meta { text-align: center; margin-top: -2rem; margin-bottom: 4rem; }
+.video-meta .tag { display: inline-block; background: var(--violet); color: white; border: none; margin-bottom: 1rem; }
+.video-meta h3 { font-size: 2rem; margin-bottom: 1rem; }
+.video-meta a { color: var(--cyan); font-weight: 500; transition: opacity 0.2s; } .video-meta a:hover { opacity: 0.8; }
+
+.cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; perspective: 1000px; }
+.card-3d {
+  background: var(--bg3); border: 1px solid var(--border); padding: 2.5rem 2rem;
+  border-radius: 16px; position: relative; transition: transform 0.1s; transform-style: preserve-3d;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.card-tag { font-size: 0.8rem; color: var(--cyan); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+.card-3d h3 { font-size: 2.5rem; transform: translateZ(30px); }
+.card-3d p { color: var(--muted); line-height: 1.5; transform: translateZ(20px); flex-grow: 1; }
+.card-arrow { position: absolute; bottom: 2rem; right: 2rem; font-size: 1.5rem; color: var(--violet2); opacity: 0; transform: translate(-10px, 10px) translateZ(40px); transition: 0.3s; }
+.card-3d:hover .card-arrow { opacity: 1; transform: translate(0, 0) translateZ(40px); }
+.insta-btn-container { text-align: center; margin-top: 4rem; }
+
+/* Services */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 4rem; }
+.service-card {
+  background: var(--bg2); border: 1px solid rgba(255,255,255,0.05); padding: 3rem 2rem;
+  border-radius: 12px; position: relative; transition: transform 0.4s;
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.service-card:hover { transform: translateY(-6px); }
+.service-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--violet), var(--cyan));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+}
+.service-card:hover::after { transform: scaleX(1); }
+.service-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.service-card h3 { font-size: 2.2rem; }
+.feature-list { display: flex; flex-direction: column; gap: 1rem; flex-grow: 1; }
+.feature-item { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 0.95rem; }
+.feature-item::before { content: ''; display: inline-block; width: 12px; height: 2px; background: linear-gradient(to right, var(--violet), var(--cyan)); margin-top: 8px; flex-shrink: 0; }
+.service-link { display: inline-flex; align-items: center; gap: 8px; color: var(--text); font-weight: 500; font-size: 0.95rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); transition: gap 0.3s; }
+.service-card:hover .service-link { gap: 12px; color: var(--cyan); }
+
+.pricing-footer { background: var(--bg3); padding: 2.5rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); flex-wrap: wrap; gap: 2rem; }
+.pricing-footer p { font-size: 1.1rem; color: var(--text); opacity: 0.9; }
+
+/* Contact */
+.contact-section { position: relative; overflow: hidden; }
+.contact-blob { position: absolute; bottom: -10%; right: -5%; width: 400px; height: 400px; background: var(--violet); filter: blur(100px); opacity: 0.2; border-radius: 50%; animation: pulse 6s infinite alternate; pointer-events: none; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; position: relative; z-index: 1; }
+.contact-info { display: flex; flex-direction: column; gap: 2rem; }
+.info-item h4 { font-size: 1.5rem; color: var(--violet2); margin-bottom: 0.5rem; }
+.info-item a { font-size: 1.1rem; color: var(--text); transition: color 0.2s; display: inline-block; }
+.info-item a:hover { color: var(--cyan); }
+.open-work-card { background: rgba(124,58,237,0.1); border: 1px solid var(--border); padding: 2rem; border-radius: 12px; margin-top: 2rem; }
+.open-work-card h4 { font-size: 1.5rem; color: var(--white); margin-bottom: 0.5rem; }
+.open-work-card p { color: var(--muted); }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.5rem; background: var(--bg2); padding: 3rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-group label { font-size: 0.9rem; color: var(--muted); font-weight: 500; }
+.form-input { background: var(--bg); border: 1px solid var(--border); padding: 1rem; border-radius: 8px; color: var(--text); font-family: inherit; font-size: 1rem; transition: border-color 0.3s; }
+.form-input:focus { outline: none; border-color: var(--cyan); }
+textarea.form-input { min-height: 120px; resize: vertical; }
+.submit-btn { background: var(--text); color: var(--bg); border: none; padding: 1.2rem; font-weight: 600; font-size: 1.1rem; border-radius: 8px; transition: transform 0.2s, background 0.3s; cursor: none !important; margin-top: 1rem; }
+.submit-btn:hover { background: var(--cyan); transform: translateY(-2px); }
+.submit-btn.success { background: #10B981; color: white; }
+
+/* Footer */
+footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
+footer .logo { font-size: 1.5rem; }
+footer p { color: var(--muted); font-size: 0.9rem; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .cards-grid, .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .about-grid, .contact-grid, .cards-grid, .services-grid { grid-template-columns: 1fr; }
+  .pricing-footer { flex-direction: column; text-align: center; }
+  .cta-group { justify-content: center; }
+  .hero-bio, .hero-sub, .eyebrow { text-align: center; margin-left: auto; margin-right: auto; justify-content: center; }
+  #hero { align-items: center; text-align: center; }
+  .scroll-indicator { display: none; }
+  .bio { font-size: 1rem; }
+  .contact-form { padding: 2rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+  
+  <div id="root"></div>
+
+<script type="text/babel">
+  const { useState, useEffect, useRef } = React;
+
+  // Custom Cursor Logic
+  const initCursor = () => {
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0;
+    let rx = 0, ry = 0;
+    
+    window.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+    
+    const render = () => {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(render);
+    };
+    requestAnimationFrame(render);
+  };
+
+  // Sparkles Logic
+  const initSparks = () => {
+    const colors = ['var(--violet2)', 'var(--cyan)', 'var(--pink)'];
+    window.addEventListener('click', (e) => {
+      for(let i=0; i<8; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'spark';
+        spark.style.left = e.clientX + 'px';
+        spark.style.top = e.clientY + 'px';
+        spark.style.background = colors[Math.floor(Math.random() * colors.length)];
+        
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 30 + Math.random() * 50;
+        const dx = Math.cos(angle) * dist + 'px';
+        const dy = Math.sin(angle) * dist + 'px';
+        spark.style.setProperty('--dx', dx);
+        spark.style.setProperty('--dy', dy);
+        
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 700);
+      }
+    });
+  };
+
+  // Components
+  const Reveal = ({ children, delay = 0 }) => {
+    const ref = useRef(null);
+    useEffect(() => {
+      const observer = new IntersectionObserver(([entry]) => {
+        if(entry.isIntersecting) {
+          setTimeout(() => ref.current?.classList.add('show'), delay);
+          observer.unobserve(ref.current);
+        }
+      }, { threshold: 0.12 });
+      if(ref.current) observer.observe(ref.current);
+      return () => observer.disconnect();
+    }, [delay]);
+    return <div ref={ref} className="revealEl">{children}</div>;
+  };
+
+  const CountUp = ({ end, suffix = '', delay = 0 }) => {
+    const [count, setCount] = useState(0);
+    const ref = useRef(null);
+    useEffect(() => {
+      const observer = new IntersectionObserver(([entry]) => {
+        if(entry.isIntersecting) {
+          let startTimes = null;
+          const duration = 2000;
+          const animate = (timestamp) => {
+            if(!startTimes) startTimes = timestamp;
+            const progress = timestamp - startTimes;
+            const percentage = Math.min(progress / duration, 1);
+            // easeOutExpo
+            const ease = percentage === 1 ? 1 : 1 - Math.pow(2, -10 * percentage);
+            setCount(Math.floor(ease * end));
+            if(progress < duration) requestAnimationFrame(animate);
+          };
+          setTimeout(() => requestAnimationFrame(animate), delay);
+          observer.unobserve(ref.current);
+        }
+      });
+      if(ref.current) observer.observe(ref.current);
+    }, [end, delay]);
+    return <span ref={ref}>{count}{suffix}</span>;
+  };
+
+  const SkillBar = ({ name, percent }) => {
+    const [width, setWidth] = useState(0);
+    const ref = useRef(null);
+    useEffect(() => {
+      const observer = new IntersectionObserver(([entry]) => {
+        if(entry.isIntersecting) {
+          setWidth(percent);
+          observer.unobserve(ref.current);
+        }
+      });
+      if(ref.current) observer.observe(ref.current);
+    }, [percent]);
+    return (
+      <div className="skill-item" ref={ref}>
+        <div className="skill-info"><span>{name}</span><span>{percent}%</span></div>
+        <div className="skill-bar-bg">
+          <div className="skill-bar-fill" style={{ width: `${width}%` }}></div>
+        </div>
+      </div>
+    );
+  };
+
+  const MagneticButton = ({ children, className, href }) => {
+    const ref = useRef(null);
+    const handleMouseMove = (e) => {
+      if(!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      ref.current.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
+    };
+    const handleMouseLeave = () => {
+      if(!ref.current) return;
+      ref.current.style.transform = `translate(0px, 0px)`;
+    };
+    const Tag = href ? 'a' : 'button';
+    return (
+      <div className="magnetic" ref={ref} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ transition: 'transform 0.1s' }}>
+        <Tag href={href} className={`btn ${className}`}>{children}</Tag>
+      </div>
+    );
+  };
+
+  const TiltCard = ({ tag, title, desc, delay }) => {
+    const ref = useRef();
+    const handleMove = (e) => {
+      if(window.innerWidth < 768) return;
+      const { left, top, width, height } = ref.current.getBoundingClientRect();
+      const x = (e.clientX - left) / width;
+      const y = (e.clientY - top) / height;
+      const rx = (y - 0.5) * -20;
+      const ry = (x - 0.5) * 20;
+      ref.current.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    };
+    const handleLeave = () => {
+      ref.current.style.transform = 'perspective(600px) rotateX(0) rotateY(0)';
+    };
+    return (
+      <Reveal delay={delay}>
+        <div className="card-3d" ref={ref} onMouseMove={handleMove} onMouseLeave={handleLeave}>
+          <span className="card-tag">{tag}</span>
+          <h3>{title}</h3>
+          <p>{desc}</p>
+          <div className="card-arrow">→</div>
+        </div>
+      </Reveal>
+    );
+  };
+
+  const Form = () => {
+    const [status, setStatus] = useState('Submit Message');
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      setStatus('✓ Message Sent!');
+      setTimeout(() => setStatus('Submit Message'), 3000);
+      e.target.reset();
+    };
+    return (
+      <form className="contact-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Your Name</label>
+          <input type="text" required className="form-input" placeholder="John Doe" />
+        </div>
+        <div className="form-group">
+          <label>Email Address</label>
+          <input type="email" required className="form-input" placeholder="john@example.com" />
+        </div>
+        <div className="form-group">
+          <label>Project Type</label>
+          <input type="text" required className="form-input" placeholder="YouTube, Cinematic, Ad..." />
+        </div>
+        <div className="form-group">
+          <label>Message</label>
+          <textarea required className="form-input" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <button type="submit" className={`submit-btn ${status.includes('✓') ? 'success' : ''}`}>{status}</button>
+      </form>
+    );
+  };
+
+  const App = () => {
+    useEffect(() => {
+      initCursor();
+      initSparks();
+    }, []);
+
+    // Circular text init
+    useEffect(() => {
+      const svgText = document.getElementById('orbit-text');
+      if(svgText) {
+        const textStr = "VIDEO EDITOR • FRAME FLICKS • ";
+        let html = '';
+        const r = 60;
+        for(let i=0; i<textStr.length; i++) {
+          const angle = (i / textStr.length) * Math.PI * 2;
+          const x = 75 + Math.cos(angle) * r;
+          const y = 75 + Math.sin(angle) * r;
+          const rot = (angle * 180 / Math.PI) + 90;
+          html += `<text x="${x}" y="${y}" transform="rotate(${rot},${x},${y})" fill="var(--text)" opacity="0.6" font-size="12" font-weight="bold" font-family="'DM Sans',sans-serif" text-anchor="middle">${textStr[i]}</text>`;
+        }
+        svgText.innerHTML = html;
+      }
+    }, []);
+
+    return (
+      <>
+        {/* NAV */}
+        <nav>
+          <div className="logo bebas">FRAME FLICKS</div>
+          <ul className="nav-links">
+            <li><a href="#about" className="nav-link">About</a></li>
+            <li><a href="#work" className="nav-link">Work</a></li>
+            <li><a href="#services" className="nav-link">Services</a></li>
+            <li><a href="#contact" className="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        {/* HERO */}
+        <section id="hero">
+          <div className="aurora-container">
+            <div className="aurora aurora-1"></div>
+            <div className="aurora aurora-2"></div>
+            <div className="aurora aurora-3"></div>
+            <div className="grid-overlay"></div>
+          </div>
+          <div className="blob-decor"></div>
+          
+          <div className="eyebrow">Video Editor & Visual Storyteller</div>
+          <div className="hero-name bebas">
+            <div className="name-1">SURAJ</div>
+            <div className="name-2">
+              MEENA
+              <span className="glitch-ghost ghost1">MEENA</span>
+              <span className="glitch-ghost ghost2">MEENA</span>
+            </div>
+          </div>
+          <div className="hero-sub bebas">Frame Flicks Studio</div>
+          <p className="hero-bio">
+            Turning raw clips into cinematic stories that grab attention. 
+            Clean edits, smooth transitions, and visuals that make your content stand out. 🎬✨
+          </p>
+          <div className="cta-group">
+            <MagneticButton href="#work" className="btn-primary">View My Work</MagneticButton>
+            <MagneticButton href="#contact" className="btn-outline">Let's Collaborate</MagneticButton>
+          </div>
+
+          <svg className="circular-text" viewBox="0 0 150 150" id="orbit-text"></svg>
+          
+          <div className="scroll-indicator">
+            <div className="scroll-line"></div>
+            <span className="scroll-text">SCROLL</span>
+          </div>
+        </section>
+
+        <div className="divider"></div>
+
+        {/* ABOUT */}
+        <section id="about">
+          <Reveal><span className="section-label">Who I Am</span></Reveal>
+          <Reveal delay={100}><h2 className="section-title">The Editor Behind <span>the Frame</span></h2></Reveal>
+          
+          <div className="about-grid">
+            <Reveal delay={200}>
+              <div className="bio">
+                <p>Hello! I'm Suraj Meena, a self-taught video editor focused on creating visually stunning and highly engaging content. With a keen eye for pacing and storytelling, I transform ordinary footage into compelling narratives.</p>
+                <p>Operating under the brand Frame Flicks, I specialize in blending cinematic visuals with modern digital trends. Whether it's a fast-paced YouTube reel or a moody brand documentary, my goal is to hold the viewer's attention from the first frame to the last.</p>
+                <p>I believe in the power of sound design, precise color grading, and intentional motion. Let's build something memorable together.</p>
+                
+                <div className="stats-row">
+                  <div className="stat-item">
+                    <h3 className="bebas"><CountUp end={3} suffix="+" /></h3>
+                    <p>Specializations</p>
+                  </div>
+                  <div className="stat-item">
+                    <h3 className="bebas"><CountUp end={100} suffix="%" delay={200} /></h3>
+                    <p>Passion Driven</p>
+                  </div>
+                  <div className="stat-item">
+                    <h3 className="bebas">24/7</h3>
+                    <p>Creative Mode</p>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+            
+            <Reveal delay={300}>
+              <div className="skills-wrapper">
+                <SkillBar name="DaVinci Resolve" percent={82} />
+                <SkillBar name="After Effects" percent={70} />
+                <SkillBar name="CapCut / Mobile" percent={92} />
+                <SkillBar name="Visual Storytelling" percent={95} />
+                
+                <div className="tags">
+                  <span className="tag">Cinematic Edits</span>
+                  <span className="tag">YouTube Videos</span>
+                  <span className="tag">Brand Content</span>
+                  <span className="tag">Short-form Reels</span>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        <div className="divider"></div>
+
+        {/* WORK */}
+        <section id="work" className="work-section">
+          <Reveal><span className="section-label">Selected Projects</span></Reveal>
+          <Reveal delay={100}><h2 className="section-title">Visual <span>Storytelling</span></h2></Reveal>
+
+          <Reveal delay={200}>
+            <div className="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/QgXMgYHXRsQ" title="Frame Flicks — Official Showreel" loading="lazy" allowFullScreen></iframe>
+            </div>
+            <div className="video-meta">
+              <span className="tag">Showreel 2025</span>
+              <h3 className="bebas">Official Showreel</h3>
+              <a href="https://www.youtube.com/embed/QgXMgYHXRsQ" target="_blank" rel="noreferrer">Watch on YouTube →</a>
+            </div>
+          </Reveal>
+
+          <div className="cards-grid">
+            <TiltCard delay={100} tag="Cinematic / Films" title="Story Edit" desc="Emotion-driven narrative edits with precision color grading to set the perfect mood." />
+            <TiltCard delay={200} tag="YouTube / Reels" title="Short Form" desc="Scroll-stopping content with high retention. Hook your audience in the first 3 seconds." />
+            <TiltCard delay={300} tag="Corporate / Ads" title="Brand Video" desc="Polished brand storytelling that builds credibility and showcases your product beautifully." />
+          </div>
+
+          <Reveal delay={400}>
+            <div className="insta-btn-container">
+              <MagneticButton href="https://www.instagram.com/_frame_flicks_00/" className="btn-outline">View More on Instagram →</MagneticButton>
+            </div>
+          </Reveal>
+        </section>
+
+        <div className="divider"></div>
+
+        {/* SERVICES */}
+        <section id="services">
+          <Reveal><span className="section-label">What I Do</span></Reveal>
+          <Reveal delay={100}><h2 className="section-title">Editing <span>Services</span></h2></Reveal>
+
+          <div className="services-grid">
+            <Reveal delay={100}>
+              <div className="service-card">
+                <div className="service-icon">🎬</div>
+                <h3 className="bebas">Cinematic Editing</h3>
+                <div className="feature-list">
+                  <div className="feature-item">Color grading & LUT styling</div>
+                  <div className="feature-item">Cinematic pacing & cuts</div>
+                  <div className="feature-item">Sound design integration</div>
+                  <div className="feature-item">DaVinci Resolve workflow</div>
+                </div>
+                <a href="#contact" className="service-link">Get in Touch <span style={{fontSize:'1.2em'}}>→</span></a>
+              </div>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <div className="service-card">
+                <div className="service-icon">⚡</div>
+                <h3 className="bebas">Reels & YouTube</h3>
+                <div className="feature-list">
+                  <div className="feature-item">Engaging hooks & pacing</div>
+                  <div className="feature-item">Motion graphics & text</div>
+                  <div className="feature-item">Trend-aware editing</div>
+                  <div className="feature-item">Mobile-ready output</div>
+                </div>
+                <a href="#contact" className="service-link">Get in Touch <span style={{fontSize:'1.2em'}}>→</span></a>
+              </div>
+            </Reveal>
+
+            <Reveal delay={300}>
+              <div className="service-card">
+                <div className="service-icon">📐</div>
+                <h3 className="bebas">Corporate & Ads</h3>
+                <div className="feature-list">
+                  <div className="feature-item">Brand-consistent editing</div>
+                  <div className="feature-item">After Effects motion titles</div>
+                  <div className="feature-item">Product & promo videos</div>
+                  <div className="feature-item">Clean professional delivery</div>
+                </div>
+                <a href="#contact" className="service-link">Get in Touch <span style={{fontSize:'1.2em'}}>→</span></a>
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal delay={400}>
+            <div className="pricing-footer">
+              <p>All pricing is custom — based on your project scope, raw footage volume, and timeline.</p>
+              <MagneticButton href="#contact" className="btn-primary">Request a Quote</MagneticButton>
+            </div>
+          </Reveal>
+        </section>
+
+        <div className="divider"></div>
+
+        {/* CONTACT */}
+        <section id="contact" className="contact-section">
+          <div className="contact-blob"></div>
+          
+          <Reveal><span className="section-label">Let's Talk</span></Reveal>
+          <Reveal delay={100}><h2 className="section-title">Start a <span>Project</span></h2></Reveal>
+
+          <div className="contact-grid">
+            <Reveal delay={200}>
+              <div className="contact-info">
+                <div className="info-item">
+                  <h4>Email</h4>
+                  <a href="mailto:surajmeenam946@gmail.com">surajmeenam946@gmail.com</a>
+                </div>
+                <div className="info-item">
+                  <h4>Pro Instagram</h4>
+                  <a href="https://www.instagram.com/_frame_flicks_00/" target="_blank" rel="noreferrer">@_frame_flicks_00</a>
+                </div>
+                <div className="info-item">
+                  <h4>Personal Instagram</h4>
+                  <a href="https://www.instagram.com/thesurajmeenaa/" target="_blank" rel="noreferrer">@thesurajmeenaa</a>
+                </div>
+                <div className="info-item">
+                  <h4>Portfolio</h4>
+                  <a href="https://frameflicks.carrd.co/" target="_blank" rel="noreferrer">frameflicks.carrd.co</a>
+                </div>
+                
+                <div className="open-work-card">
+                  <h4>Currently accepting new projects for Q3</h4>
+                  <p>Drop a message with your project details, and I'll get back to you within 24 hours.</p>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={300}>
+              <Form />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* FOOTER */}
+        <footer>
+          <div className="logo bebas" style={{fontSize: '1.5rem', background: 'linear-gradient(90deg, var(--violet), var(--cyan))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>FRAME FLICKS</div>
+          <p>© 2025 Suraj Meena — All rights reserved</p>
+        </footer>
+      </>
+    );
+  };
+
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(<App />);
+</script>
+</body>
+</html>
