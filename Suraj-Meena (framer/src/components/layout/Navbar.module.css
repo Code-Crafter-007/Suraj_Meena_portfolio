@@ -1,0 +1,135 @@
+.headerWrapper {
+  position: fixed;
+  top: 24px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 999;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.navPill {
+  pointer-events: auto;
+  background-color: var(--color-bg-pill);
+  width: 320px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  width: 100%;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text-light);
+  letter-spacing: -0.01em;
+  transition: opacity 0.2s ease;
+}
+
+.brandName:hover {
+  opacity: 0.85;
+}
+
+.menuButton {
+  width: 44px;
+  height: 36px;
+  padding: 8px 12px;
+  background-color: var(--color-bg-pill-btn);
+  border-radius: var(--radius-btn);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.menuButton:hover {
+  transform: scale(1.04);
+}
+
+.line {
+  background-color: var(--color-text-primary);
+  border-radius: 371px;
+  transition: all 0.3s cubic-bezier(0.44, 0, 0.56, 1);
+}
+
+.line1, .line3 {
+  width: 3px;
+  height: 12px;
+}
+
+.line2 {
+  width: 3px;
+  height: 16px;
+}
+
+/* Open morph to close/cross or active dots */
+.menuButton.active .line1 {
+  transform: translateY(2px) rotate(45deg);
+  height: 14px;
+}
+
+.menuButton.active .line2 {
+  opacity: 0;
+}
+
+.menuButton.active .line3 {
+  transform: translateY(-2px) rotate(-45deg);
+  height: 14px;
+}
+
+/* Dropdown Menu */
+.menuDropdown {
+  padding: 0 16px 16px;
+  border-top: 1px solid var(--color-border-pill);
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+}
+
+.navItem {
+  width: 100%;
+}
+
+.navLink {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-light);
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navLink:hover {
+  background: rgba(250, 247, 243, 0.1);
+  color: #FFFFFF;
+}
+
+@media (max-width: 480px) {
+  .headerWrapper {
+    top: 16px;
+  }
+  .navPill {
+    width: 290px;
+  }
+}
