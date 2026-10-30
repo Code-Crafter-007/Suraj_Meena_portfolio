@@ -1,0 +1,91 @@
+.servicesSection {
+  position: relative;
+  width: 100%;
+  padding: 80px 0 120px;
+  background-color: var(--color-bg-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+}
+
+.servicesList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.serviceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: padding-left 0.2s ease;
+}
+
+.serviceRow:first-child {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.serviceRow:hover {
+  padding-left: 6px;
+}
+
+.serviceTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.85rem);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.categoriesWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.categoryName {
+  font-family: var(--font-display);
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 500;
+  color: rgba(17, 17, 17, 0.5);
+  letter-spacing: -0.01em;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--color-text-primary);
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .serviceRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px 0;
+  }
+  .servicesSection {
+    padding: 50px 0 80px;
+  }
+}

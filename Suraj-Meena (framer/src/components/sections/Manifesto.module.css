@@ -1,0 +1,39 @@
+.quoteSection {
+  position: relative;
+  width: 100%;
+  padding: 80px 0 100px;
+  background-color: var(--color-bg-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter);
+  display: flex;
+  justify-content: center;
+}
+
+.quoteBlock {
+  max-width: 950px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.2vw, 2.35rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  user-select: none;
+}
+
+.word {
+  display: inline-block;
+  will-change: color;
+  transition: color 0.3s ease;
+  margin-right: 0.15em;
+}
+
+@media (max-width: 768px) {
+  .quoteSection {
+    padding: 50px 0 70px;
+  }
+}
