@@ -4,6 +4,7 @@ import { Hero } from '@/components/sections/Hero';
 import { Bio } from '@/components/sections/Bio';
 import { Manifesto } from '@/components/sections/Manifesto';
 import { Services } from '@/components/sections/Services';
+import { FeaturedWork } from '@/components/sections/FeaturedWork';
 
 export default function HomePage() {
   return (
@@ -13,6 +14,7 @@ export default function HomePage() {
       <Bio />
       <Manifesto />
       <Services />
+      <FeaturedWork />
     </main>
   );
 }

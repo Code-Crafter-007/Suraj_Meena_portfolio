@@ -1,0 +1,76 @@
+.cardContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.projectCard {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.projectCard:hover {
+  transform: translateY(-4px);
+}
+
+/* 9:16 Video Frame */
+.imageWrap {
+  width: 320px;
+  height: 569px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: rgba(17, 17, 17, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Metadata */
+.metaWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.description {
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(17, 17, 17, 0.6);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .projectCard {
+    width: 100%;
+    max-width: 320px;
+  }
+  .imageWrap {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+  }
+}

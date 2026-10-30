@@ -1,0 +1,106 @@
+.projectsSection {
+  position: relative;
+  width: 100%;
+  padding: 80px 0 120px;
+  background-color: var(--color-bg-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+}
+
+.viewAllButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.viewAllButton:hover {
+  transform: translateX(4px);
+}
+
+.btnText {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.arrowIconWrap {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.2s ease;
+}
+
+.arrowIconWrap:hover {
+  background-color: rgba(17, 17, 17, 0.05);
+}
+
+.arrowSvg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-primary);
+}
+
+/* Grid matching original Framer multi-column composition */
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px 24px;
+  width: 100%;
+  justify-items: center;
+}
+
+@media (min-width: 1024px) {
+  .projectsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .projectsSection {
+    padding: 50px 0 80px;
+  }
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .projectsGrid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
