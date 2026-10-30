@@ -7,6 +7,8 @@ import { Services } from '@/components/sections/Services';
 import { FeaturedWork } from '@/components/sections/FeaturedWork';
 import { Collaborations } from '@/components/sections/Collaborations';
 import { Thoughts } from '@/components/sections/Thoughts';
+import { Contact } from '@/components/sections/Contact';
+import { Footer } from '@/components/layout/Footer';
 
 export default function HomePage() {
   return (
@@ -19,6 +21,8 @@ export default function HomePage() {
       <FeaturedWork />
       <Collaborations />
       <Thoughts />
+      <Contact />
+      <Footer />
     </main>
   );
 }

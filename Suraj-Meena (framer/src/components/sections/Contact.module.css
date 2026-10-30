@@ -1,0 +1,226 @@
+.section {
+  width: 100%;
+  background-color: var(--color-background, #FAF7F3);
+  padding: 100px 32px 120px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+/* Left Column */
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.titleWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary, #111111);
+  margin: 0;
+}
+
+.description {
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: rgba(17, 17, 17, 0.7);
+  max-width: 440px;
+  margin: 0;
+}
+
+/* Social Row */
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.socialBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.socialBtn:hover {
+  background-color: #111111;
+  color: #FAF7F3;
+  transform: translateY(-2px);
+  border-color: #111111;
+}
+
+/* Right Column: Form */
+.rightCol {
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-primary, #111111);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 18px;
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: 1rem;
+  color: #111111;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(17, 17, 17, 0.38);
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #111111;
+  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.08);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Submit Button */
+.submitBtn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 16px 28px;
+  background-color: #111111;
+  color: #FAF7F3;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submitBtn:hover {
+  background-color: #2a2a2a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.submitText {
+  display: inline-block;
+}
+
+/* Success Message */
+.successMessage {
+  padding: 40px;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  border-radius: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.successMessage h3 {
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0;
+}
+
+.successMessage p {
+  color: rgba(17, 17, 17, 0.7);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.directMail {
+  color: #111111;
+  font-weight: 600;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .section {
+    padding: 70px 24px 90px;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 60px 18px 80px;
+  }
+
+  .title {
+    font-size: 2.75rem;
+  }
+
+  .socialBtn {
+    width: 44px;
+    height: 44px;
+  }
+}

@@ -1,0 +1,183 @@
+.footer {
+  width: 100%;
+  background-color: var(--color-text-primary, #111111);
+  color: var(--color-background, #FAF7F3);
+  padding: 100px 32px 40px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Row: Heading on left, Columns on right */
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 60px;
+  margin-bottom: 80px;
+}
+
+.headingWrap {
+  max-width: 460px;
+}
+
+.heading {
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #FAF7F3;
+  margin: 0;
+}
+
+.columns {
+  display: flex;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.colTitle {
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(250, 247, 243, 0.5);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.linksNav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quickLink {
+  color: #FAF7F3;
+  text-decoration: none;
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+  opacity: 0.85;
+}
+
+.quickLink:hover {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.quickLinkText {
+  letter-spacing: -0.01em;
+}
+
+.contactLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mailLink {
+  color: #FAF7F3;
+  text-decoration: none;
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.mailLink:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* Massive SURAJ Wordmark */
+.wordmarkWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  pointer-events: none;
+  overflow: hidden;
+  padding: 40px 0 20px;
+}
+
+.wordmark {
+  font-family: var(--font-heading, 'Bebas Neue', sans-serif);
+  font-size: clamp(6rem, 23vw, 22rem);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  color: rgba(250, 247, 243, 0.08);
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Bottom Bar */
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid rgba(250, 247, 243, 0.1);
+  font-family: var(--font-primary, 'Archivo', sans-serif);
+  font-size: 0.875rem;
+  color: rgba(250, 247, 243, 0.5);
+}
+
+.copyright,
+.location {
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .topRow {
+    flex-direction: column;
+    gap: 48px;
+    margin-bottom: 60px;
+  }
+
+  .columns {
+    gap: 60px;
+  }
+
+  .footer {
+    padding: 70px 24px 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .columns {
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .footer {
+    padding: 60px 18px 28px;
+  }
+}
