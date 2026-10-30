@@ -5,6 +5,8 @@ import { Bio } from '@/components/sections/Bio';
 import { Manifesto } from '@/components/sections/Manifesto';
 import { Services } from '@/components/sections/Services';
 import { FeaturedWork } from '@/components/sections/FeaturedWork';
+import { Collaborations } from '@/components/sections/Collaborations';
+import { Thoughts } from '@/components/sections/Thoughts';
 
 export default function HomePage() {
   return (
@@ -15,6 +17,8 @@ export default function HomePage() {
       <Manifesto />
       <Services />
       <FeaturedWork />
+      <Collaborations />
+      <Thoughts />
     </main>
   );
 }
