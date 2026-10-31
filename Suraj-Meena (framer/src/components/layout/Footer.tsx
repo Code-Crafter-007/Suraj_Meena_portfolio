@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { motion } from 'motion/react';
 import styles from './Footer.module.css';
 import { SITE_METADATA } from '@/data/site';
 
@@ -19,11 +22,23 @@ export const Footer: React.FC = () => {
       <div className={styles.container}>
         {/* Top Section */}
         <div className={styles.topRow}>
-          <div className={styles.headingWrap}>
+          <motion.div
+            initial={{ opacity: 0, y: 15, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className={styles.headingWrap}
+          >
             <h2 className={styles.heading}>Helping Brands Stand Out.</h2>
-          </div>
+          </motion.div>
 
-          <div className={styles.columns}>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className={styles.columns}
+          >
             {/* Quick Links Column */}
             <div className={styles.column}>
               <h4 className={styles.colTitle}>/Quick links</h4>
@@ -45,13 +60,20 @@ export const Footer: React.FC = () => {
                 </a>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Massive SURAJ Wordmark */}
-        <div className={styles.wordmarkWrap} aria-hidden="true">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className={styles.wordmarkWrap}
+          aria-hidden="true"
+        >
           <p className={styles.wordmark}>SURAJ</p>
-        </div>
+        </motion.div>
 
         {/* Bottom Credits & Copyright */}
         <div className={styles.bottomBar}>

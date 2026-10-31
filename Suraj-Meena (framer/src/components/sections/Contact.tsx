@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import styles from './Contact.module.css';
 import { SITE_METADATA } from '@/data/site';
 
@@ -77,13 +78,33 @@ export const Contact: React.FC = () => {
           {/* Left Column: Heading, Subtext, Social Links */}
           <div className={styles.leftCol}>
             <div className={styles.titleWrap}>
-              <h2 className={styles.title}>Let’s talk.</h2>
-              <p className={styles.description}>
+              <motion.h2
+                initial={{ opacity: 0, y: 15, filter: 'blur(8px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className={styles.title}
+              >
+                Let’s talk.
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className={styles.description}
+              >
                 Have a project or need help? Fill out the form, and we&apos;ll get back to you soon.
-              </p>
+              </motion.p>
             </div>
 
-            <div className={styles.socialRow}>
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className={styles.socialRow}
+            >
               {socials.map((s) => (
                 <a
                   key={s.name}
@@ -96,11 +117,17 @@ export const Contact: React.FC = () => {
                   {s.icon}
                 </a>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Right Column: Original Framer Dark Card Form */}
-          <div className={styles.rightCol}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className={styles.rightCol}
+          >
             <div className={styles.formCard}>
               {submitted ? (
                 <div className={styles.successMessage}>
@@ -163,7 +190,7 @@ export const Contact: React.FC = () => {
                 </form>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
