@@ -41,9 +41,9 @@ export const Navbar: React.FC = () => {
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
           >
-            <span className={`${styles.line} ${styles.line1}`} />
-            <span className={`${styles.line} ${styles.line2}`} />
-            <span className={`${styles.line} ${styles.line3}`} />
+            <span className={styles.dot} />
+            <span className={styles.dot} />
+            <span className={styles.dot} />
           </button>
         </div>
 

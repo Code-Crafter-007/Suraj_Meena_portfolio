@@ -62,24 +62,29 @@
 
 .linksNav {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 240px;
 }
 
 .quickLink {
-  color: #FAF7F3;
+  background-color: var(--color-background, #FAF7F3);
+  color: #111111;
   text-decoration: none;
   font-family: var(--font-primary, 'Archivo', sans-serif);
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  display: inline-block;
-  opacity: 0.85;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .quickLink:hover {
-  opacity: 1;
-  transform: translateX(4px);
+  background-color: #FFFFFF;
+  transform: translateY(-2px);
 }
 
 .quickLinkText {

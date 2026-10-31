@@ -5,7 +5,7 @@ import { Bio } from '@/components/sections/Bio';
 import { Manifesto } from '@/components/sections/Manifesto';
 import { Services } from '@/components/sections/Services';
 import { FeaturedWork } from '@/components/sections/FeaturedWork';
-import { Collaborations } from '@/components/sections/Collaborations';
+import { Testimonials } from '@/components/sections/Testimonials';
 import { Thoughts } from '@/components/sections/Thoughts';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/layout/Footer';
@@ -19,7 +19,7 @@ export default function HomePage() {
       <Manifesto />
       <Services />
       <FeaturedWork />
-      <Collaborations />
+      <Testimonials />
       <Thoughts />
       <Contact />
       <Footer />

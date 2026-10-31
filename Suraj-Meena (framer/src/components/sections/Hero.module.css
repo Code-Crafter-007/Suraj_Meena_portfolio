@@ -93,31 +93,31 @@
   display: block;
 }
 
-/* Portrait Card Treatment */
-.avatarCard {
+/* Compact Centered Portrait Beneath EDITOR */
+.heroPortraitWrap {
   width: 100%;
-  max-width: 440px;
-  margin: 28px auto;
-  position: relative;
-  z-index: 1;
   display: flex;
   justify-content: center;
+  margin-top: -10px;
+  position: relative;
+  z-index: 1;
 }
 
-.portraitWrap {
-  width: 100%;
-  aspect-ratio: 1.333;
-  border-radius: var(--radius-card);
+.heroPortraitCard {
+  width: clamp(150px, 16vw, 200px);
+  aspect-ratio: 1;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-  background-color: var(--color-bg-secondary);
+  background-color: #1a1a1a;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
 }
 
-.portraitImg {
+.heroPortraitImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
+  filter: grayscale(100%) contrast(1.1);
   display: block;
 }
 

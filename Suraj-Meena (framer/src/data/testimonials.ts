@@ -1,52 +1,42 @@
-export interface Collaboration {
+export interface Testimonial {
   id: string;
-  projectTitle: string;
-  focus: string;
-  role: string;
-  description: string;
-  tools: string[];
-  visualUrl: string;
+  quote: string;
+  authorName: string;
+  authorRole: string;
+  avatarUrl: string;
 }
 
-export const COLLABORATIONS_DATA: Collaboration[] = [
+export const TESTIMONIALS_DATA: Testimonial[] = [
   {
-    id: 'tum-aaye-ho',
-    projectTitle: 'Tum Aaye Ho',
-    focus: 'Lyrical Video Direction & Motion Graphics',
-    role: 'Visual Editor & Motion Designer',
-    description:
-      'Engineered an immersive lyrical narrative with kinetic typography, precise cuts, and emotive color grading to elevate the musical journey.',
-    tools: ['After Effects', 'Premiere Pro', 'Photoshop'],
-    visualUrl: '/assets/images/hero/holo-triangle-3d.png',
+    id: 'yakoub-kashmiri',
+    quote:
+      'Completely changed how I approach visual storytelling and motion. The cuts feel intentional, from the macro pacing to the smallest micro-transitions.',
+    authorName: 'Yakoub Kashmiri',
+    authorRole: 'Marketing Director',
+    avatarUrl: '/assets/images/testimonials/yakoub-kashmiri.jpg',
   },
   {
-    id: 'mm-cafe',
-    projectTitle: 'M & M Restro and Cafe',
-    focus: 'Hospitality & Commercial Filmmaking',
-    role: 'Cinematographer & Commercial Editor',
-    description:
-      'Captured the culinary craftsmanship, ambient lighting, and social warmth of a premier destination cafe to drive genuine footfall and brand engagement.',
-    tools: ['Premiere Pro', 'DaVinci Resolve'],
-    visualUrl: '/assets/images/hero/holo-ribbon-3d.png',
+    id: 'daniel-k',
+    quote:
+      'Everything feels intentional, from the visual layout to the motion curves. The attention to detail and creative direction elevated our entire release.',
+    authorName: 'Daniel K.',
+    authorRole: 'Indie Maker',
+    avatarUrl: '/assets/images/testimonials/daniel-k.jpg',
   },
   {
-    id: 'mazuri',
-    projectTitle: 'Mazuri',
-    focus: 'Brand Content & Short-Form Editing',
-    role: 'Creative Editor & Sound Designer',
-    description:
-      'Crafted high-velocity, retention-optimized short-form content with sensory sound effects and dynamic punch cuts tailored for digital food enthusiasts.',
-    tools: ['After Effects', 'Sound Design'],
-    visualUrl: '/assets/images/articles/clear-design-post.png',
+    id: 'mark-m',
+    quote:
+      'Saved us weeks of production iterations. We were able to finalize our visual launch quickly, and it still looks completely custom and premium.',
+    authorName: 'Mark M.',
+    authorRole: 'Startup Founder',
+    avatarUrl: '/assets/images/testimonials/mark-m.jpg',
   },
   {
-    id: 'nav-nirmaan-obscura',
-    projectTitle: 'Nav Nirmaan & OBSCURA',
-    focus: 'Documentary Storytelling & Cinematography',
-    role: 'Documentary Editor & Photographer',
-    description:
-      'Directed community-focused documentary storytelling highlighting grassroots empowerment with Nav Nirmaan NGO, grounded by visual framing principles developed through OBSCURA.',
-    tools: ['Cinematography', 'Premiere Pro', 'Color Grading'],
-    visualUrl: '/assets/images/articles/art-direction-post.png',
+    id: 'omar-h',
+    quote:
+      'The quality is insane. Clean structure, smooth animations, and super easy to collaborate with. It feels like a premium creative partnership from start to finish.',
+    authorName: 'Omar H.',
+    authorRole: 'Frontend Developer',
+    avatarUrl: '/assets/images/testimonials/omar-h.jpg',
   },
 ];

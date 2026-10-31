@@ -1,0 +1,131 @@
+.testimonialsSection {
+  position: relative;
+  width: 100%;
+  padding: 80px 0 120px;
+  background-color: var(--color-bg-primary, #FAF7F3);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.sectionTitle {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--color-text-primary, #111111);
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+/* 4-Card Horizontal Row on Desktop */
+.cardsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.cardItem {
+  width: 100%;
+}
+
+.cardInner {
+  background-color: #111111;
+  color: #FAF7F3;
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 380px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.cardInner:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+}
+
+.quoteText {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #FAF7F3;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.authorRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.avatarWrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #222222;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.authorMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.authorName {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: #FAF7F3;
+}
+
+.authorRole {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 12px;
+  color: rgba(250, 247, 243, 0.6);
+}
+
+@media (max-width: 1024px) {
+  .cardsRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cardsRow {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .testimonialsSection {
+    padding: 50px 0 80px;
+  }
+}

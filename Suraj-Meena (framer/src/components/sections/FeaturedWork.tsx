@@ -20,7 +20,9 @@ export const FeaturedWork: React.FC = () => {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className={styles.sectionTitle}
           >
-            Featured Projects
+            <span>Featured</span>
+            <br />
+            <span>Projects</span>
           </motion.h2>
 
           <Link href="#work-section" className={styles.viewAllButton}>

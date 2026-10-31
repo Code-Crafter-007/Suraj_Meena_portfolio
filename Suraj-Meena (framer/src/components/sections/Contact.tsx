@@ -99,68 +99,70 @@ export const Contact: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Original Framer Form */}
+          {/* Right Column: Original Framer Dark Card Form */}
           <div className={styles.rightCol}>
-            {submitted ? (
-              <div className={styles.successMessage}>
-                <h3>Thank you!</h3>
-                <p>Your message has been initiated. If your mail client didn&apos;t open, email directly at:</p>
-                <a href={`mailto:${SITE_METADATA.email}`} className={styles.directMail}>
-                  {SITE_METADATA.email}
-                </a>
-              </div>
-            ) : (
-              <form className={styles.form} onSubmit={handleSubmit}>
-                <div className={styles.fieldGroup}>
-                  <label htmlFor="contact-name" className={styles.label}>
-                    Name
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    required
-                    placeholder="Enter your name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className={styles.input}
-                  />
+            <div className={styles.formCard}>
+              {submitted ? (
+                <div className={styles.successMessage}>
+                  <h3>Thank you!</h3>
+                  <p>Your message has been initiated. If your mail client didn&apos;t open, email directly at:</p>
+                  <a href={`mailto:${SITE_METADATA.email}`} className={styles.directMail}>
+                    {SITE_METADATA.email}
+                  </a>
                 </div>
+              ) : (
+                <form className={styles.form} onSubmit={handleSubmit}>
+                  <div className={styles.fieldGroup}>
+                    <label htmlFor="contact-name" className={styles.label}>
+                      Name
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      required
+                      placeholder="Enter your name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className={styles.input}
+                    />
+                  </div>
 
-                <div className={styles.fieldGroup}>
-                  <label htmlFor="contact-email" className={styles.label}>
-                    Email
-                  </label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    required
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className={styles.input}
-                  />
-                </div>
+                  <div className={styles.fieldGroup}>
+                    <label htmlFor="contact-email" className={styles.label}>
+                      Email
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      required
+                      placeholder="Enter your email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className={styles.input}
+                    />
+                  </div>
 
-                <div className={styles.fieldGroup}>
-                  <label htmlFor="contact-project" className={styles.label}>
-                    Your Project
-                  </label>
-                  <textarea
-                    id="contact-project"
-                    required
-                    rows={4}
-                    placeholder="Tell us about your project"
-                    value={formData.project}
-                    onChange={(e) => setFormData({ ...formData, project: e.target.value })}
-                    className={styles.textarea}
-                  />
-                </div>
+                  <div className={styles.fieldGroup}>
+                    <label htmlFor="contact-project" className={styles.label}>
+                      Your Project
+                    </label>
+                    <textarea
+                      id="contact-project"
+                      required
+                      rows={4}
+                      placeholder="Tell us about your project"
+                      value={formData.project}
+                      onChange={(e) => setFormData({ ...formData, project: e.target.value })}
+                      className={styles.textarea}
+                    />
+                  </div>
 
-                <button type="submit" className={styles.submitBtn}>
-                  <span className={styles.submitText}>Submit</span>
-                </button>
-              </form>
-            )}
+                  <button type="submit" className={styles.submitBtn}>
+                    <span className={styles.submitText}>Submit</span>
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       </div>

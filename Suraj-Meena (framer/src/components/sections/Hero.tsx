@@ -82,24 +82,24 @@ export const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Creator Portrait Composition */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className={styles.avatarCard}
-        >
-          <div className={styles.portraitWrap}>
-            <Image
-              src="/assets/images/about/creator-portrait-front.png"
-              alt="Portrait of Suraj Meena"
-              width={1448}
-              height={1086}
-              priority
-              className={styles.portraitImg}
-            />
-          </div>
-        </motion.div>
+          {/* Small Grayscale Portrait Centered Beneath EDITOR */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className={styles.heroPortraitWrap}
+          >
+            <div className={styles.heroPortraitCard}>
+              <Image
+                src="/assets/images/about/creator-portrait-front.png"
+                alt="Portrait of Suraj Meena"
+                width={400}
+                height={400}
+                priority
+                className={styles.heroPortraitImg}
+              />
+            </div>
+          </motion.div>
 
         {/* Bottom Information Row */}
         <motion.div
