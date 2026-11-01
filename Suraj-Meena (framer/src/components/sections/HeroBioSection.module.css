@@ -1,0 +1,508 @@
+/* ==========================================================================
+   HERO & BIO SECTIONS WITH STICKY SCROLL 3D PORTRAIT FLIP
+   Exact recreation from original Framer architecture:
+   - Wrapper: height 200vh, position relative
+   - Sticky Avatar Wrap: height 200vh, flex row center
+   - Sticky Container: height 100vh, position sticky, top 0, align-items flex-end, padding-bottom 20px
+   - Avatar Wrap: width 400px, aspect-ratio 1 (or 0.88), preserve-3d, perspective 1200px
+   - Front Face: rotateY(0deg), backface-visibility: hidden, filter: grayscale
+   - Back Face: rotateY(180deg), backface-visibility: hidden, full colour
+   - Content: position absolute, top 0, left 50%, transform: translate(-50%), 2x 100vh sections
+   ========================================================================== */
+
+.heroBioWrapper {
+  position: relative;
+  width: 100%;
+  height: 200vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-primary);
+  overflow: visible;
+}
+
+/* ========================================================
+   STICKY 3D AVATAR CONTAINER
+   ======================================================== */
+.stickyAvatarWrap {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none; /* Allows text selection & clicks behind it except when needed */
+}
+
+.stickyContainer {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  max-width: var(--container-max, 1180px);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: clamp(24px, 4.5vh, 48px);
+}
+
+.avatarWrap {
+  width: clamp(280px, 28vw, 400px);
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+
+/* 3D Perspective & Card */
+.perspectiveWrap {
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card3D {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14);
+  background-color: #111111;
+}
+
+.frontFace {
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.backFace {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  z-index: 1;
+}
+
+.portraitImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.frontImg {
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.backImg {
+  filter: none;
+}
+
+/* ========================================================
+   HERO SECTION (First 100vh)
+   ======================================================== */
+.heroSection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 120px 0 32px;
+  overflow: visible;
+  z-index: 1;
+}
+
+.heroContainer {
+  width: 100%;
+  max-width: var(--container-max, 1180px);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter, 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.titleWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 10px;
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9.5vw, 8.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+.wordWrap {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.word {
+  display: inline-block;
+}
+
+/* Floating 3D Ornaments */
+.holoTopLeft {
+  position: absolute;
+  top: -50px;
+  left: 40px;
+  width: clamp(80px, 11vw, 150px);
+  aspect-ratio: 1;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.holoBottomRight {
+  position: absolute;
+  bottom: -40px;
+  right: 50px;
+  width: clamp(90px, 13vw, 170px);
+  aspect-ratio: 1;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.holoImageWrap {
+  width: 100%;
+  height: 100%;
+}
+
+.holoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Bottom Information Row */
+.bottomInfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--font-display);
+  padding-top: 24px;
+  padding-bottom: 8px;
+  z-index: 1;
+}
+
+.copyright {
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.creatingSince {
+  font-size: clamp(14px, 1.1vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+/* ========================================================
+   BIO SECTION (Second 100vh)
+   ======================================================== */
+.bioSection {
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 0 clamp(24px, 4.5vh, 48px);
+  overflow: visible;
+  z-index: 1;
+}
+
+.bioContainer {
+  width: 100%;
+  max-width: var(--container-max, 1180px);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter, 32px);
+  display: grid;
+  grid-template-columns: 1fr clamp(280px, 28vw, 400px) 1.15fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: flex-end;
+}
+
+.bioLeftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 340px;
+}
+
+.bioCenterColSpacer {
+  width: 100%;
+  aspect-ratio: 1;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.bioRightCol {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  max-width: 380px;
+}
+
+.greeting {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+}
+
+.introStatement {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.6;
+  color: rgba(17, 17, 17, 0.7);
+}
+
+.actionWrap {
+  display: flex;
+  align-items: center;
+}
+
+.getStartedButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.getStartedButton:hover {
+  transform: translateX(4px);
+}
+
+.btnText {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.arrowIconWrap {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.2s ease;
+}
+
+.arrowIconWrap:hover {
+  background-color: rgba(17, 17, 17, 0.05);
+}
+
+.arrowSvg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-primary);
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (Matching Framer Breakpoints)
+   ======================================================== */
+@media (max-width: 1024px) {
+  .heroBioWrapper {
+    height: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .heroSection {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    min-height: 85vh;
+    padding-top: 100px;
+    padding-bottom: 24px;
+    z-index: 1;
+  }
+
+  .stickyAvatarWrap {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 24px 0 32px;
+    z-index: 2;
+    pointer-events: auto;
+  }
+
+  .stickyContainer {
+    position: relative;
+    top: auto;
+    height: auto;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .avatarWrap {
+    width: clamp(200px, 45vw, 260px);
+    margin: 0 auto;
+  }
+
+  .bioSection {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    padding: 32px 0 80px;
+    z-index: 1;
+  }
+
+  .bioContainer {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    align-items: flex-start;
+  }
+
+  .bioCenterColSpacer {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding-top: 85px;
+    padding-bottom: 20px;
+    min-height: 80vh;
+  }
+
+  .headline {
+    font-size: clamp(3.2rem, 15vw, 5rem);
+    line-height: 0.95;
+  }
+
+  .holoTopLeft {
+    top: -24px;
+    left: 0;
+    width: 75px;
+  }
+
+  .holoBottomRight {
+    bottom: -20px;
+    right: 0;
+    width: 85px;
+  }
+
+  .avatarWrap {
+    width: clamp(180px, 50vw, 220px);
+  }
+
+  .stickyAvatarWrap {
+    margin: 16px 0 24px;
+  }
+
+  .bottomInfo {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .bioSection {
+    padding: 20px 0 60px;
+  }
+
+  .bioLeftCol,
+  .bioRightCol {
+    max-width: 100%;
+  }
+
+  .greeting {
+    font-size: clamp(2.5rem, 10vw, 3.5rem);
+  }
+
+  .paragraphs {
+    gap: 16px;
+  }
+}

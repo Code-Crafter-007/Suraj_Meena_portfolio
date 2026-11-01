@@ -1,7 +1,15 @@
 @import '../styles/tokens.css';
 
 /* Original Framer base layout */
-html, body {
+html {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+body {
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
   margin: 0;

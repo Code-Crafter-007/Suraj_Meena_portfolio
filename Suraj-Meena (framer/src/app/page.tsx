@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navbar } from '@/components/layout/Navbar';
-import { Hero } from '@/components/sections/Hero';
-import { Bio } from '@/components/sections/Bio';
+import { HeroBioSection } from '@/components/sections/HeroBioSection';
 import { Manifesto } from '@/components/sections/Manifesto';
 import { Services } from '@/components/sections/Services';
 import { FeaturedWork } from '@/components/sections/FeaturedWork';
@@ -14,8 +13,7 @@ export default function HomePage() {
   return (
     <main>
       <Navbar />
-      <Hero />
-      <Bio />
+      <HeroBioSection />
       <Manifesto />
       <Services />
       <FeaturedWork />
