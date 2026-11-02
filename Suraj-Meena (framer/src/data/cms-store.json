@@ -1,0 +1,397 @@
+{
+  "settings": {
+    "heroPortraitUrl": "/assets/images/about/creator-portrait-front.png",
+    "bioPortraitUrl": "/assets/images/about/creator-portrait-front.png",
+    "creatorName": "Suraj Meena",
+    "creatorTagline": "Visual Editor & Motion Designer",
+    "location": "Gandhinagar, India",
+    "contactEmail": "surajmeenam946@gmail.com"
+  },
+  "projects": [
+    {
+      "id": "tum-aaye-ho",
+      "slug": "tum-aaye-ho",
+      "title": "Tum Aaye Ho",
+      "category": "Cinematic / Music Video",
+      "year": "2024",
+      "description": "Official lyrical music video crafted using Adobe After Effects, Premiere Pro, and Photoshop.",
+      "caseStudy": "Tum Aaye Ho is an expressive lyrical music video project centering around melodic timing, rhythmic cuts, and poetic visual atmosphere. Working closely with the artist, we developed a sensory visual treatment balancing soft typography overlays with high-contrast color grading.\n\nThe timeline demanded meticulous keyframing to sync lyric reveal curves directly to vocal timbre changes. Compositing was achieved through custom After Effects motion typography pipelines coupled with Premiere Pro color matching.",
+      "videoUrl": "/assets/videos/projects/tum-aaye-ho-preview.mp4",
+      "coverUrl": "/assets/images/hero/opengraph-hero.png",
+      "tools": [
+        "After Effects",
+        "Premiere Pro",
+        "Photoshop"
+      ],
+      "galleryUrls": [
+        "/assets/images/about/creator-portrait-front.png",
+        "/assets/images/articles/clear-design-post.png"
+      ],
+      "creativeProcessEnabled": true,
+      "creativeProcessHeading": "Creative Process & Directorial Method",
+      "creativeProcessIntro": "ha,enriegWRBWRBWROUVBWROUVBWUOWRBBWFB",
+      "creativeProcessSteps": [
+        {
+          "id": "step-1793647605987",
+          "title": "Stage 1: EFEW",
+          "description": "EFWEFWEFWEGWEGWWEWEE",
+          "mediaUrl": "https://jdjtcbgmdppznlvgjpdn.supabase.co/storage/v1/object/public/portfolio-media/uploads/1793647617371-Analysisoutput1.png",
+          "mediaType": "image",
+          "caption": "WEFWE",
+          "sortOrder": 1
+        }
+      ],
+      "featured": true,
+      "published": true,
+      "displayOrder": 1,
+      "createdAt": "2024-05-10T12:00:00.000Z"
+    },
+    {
+      "id": "mm-cafe",
+      "slug": "mm-cafe",
+      "title": "M & M Restro and Cafe",
+      "category": "Commercial / Destination",
+      "year": "2024",
+      "description": "Destination cafe aesthetic lifestyle showcase with sensory rhythm and pacing.",
+      "caseStudy": "Created as an experiential promotional showcase for M & M Restro and Cafe in Gandhinagar. The visual ambition was to capture the acoustic warmth and culinary craftsmanship through dynamic match cuts and warm color grading.\n\nEvery shot was color balanced in DaVinci Resolve with film emulation LUTs, focusing on warm amber highlights and tactile kitchen sound design.",
+      "videoUrl": "/assets/videos/projects/mm-cafe-preview.mp4",
+      "coverUrl": "/assets/images/articles/brand-systems-post.png",
+      "tools": [
+        "Premiere Pro",
+        "DaVinci Resolve",
+        "Sound Design"
+      ],
+      "galleryUrls": [
+        "/assets/images/articles/brand-systems-post.png"
+      ],
+      "featured": true,
+      "published": true,
+      "displayOrder": 2,
+      "createdAt": "2024-08-15T12:00:00.000Z"
+    },
+    {
+      "id": "mazuri",
+      "slug": "mazuri",
+      "title": "Mazuri",
+      "category": "Brand Content / Promo",
+      "year": "2025",
+      "description": "High-tempo culinary promo reel engineered for short-form retention.",
+      "caseStudy": "A high-velocity social promo built for maximum hook retention and kinetic momentum. Combining rapid-fire speed ramps, directional whip transitions, and bass-heavy audio layering, Mazuri demonstrates commercial editing tuned for social algorithms.",
+      "videoUrl": "/assets/videos/projects/mazuri-preview.mp4",
+      "coverUrl": "/assets/images/articles/art-direction-post.png",
+      "tools": [
+        "After Effects",
+        "Sound Design",
+        "Speed Ramping"
+      ],
+      "galleryUrls": [],
+      "featured": true,
+      "published": true,
+      "displayOrder": 3,
+      "createdAt": "2025-01-20T12:00:00.000Z"
+    },
+    {
+      "id": "nav-nirmaan",
+      "slug": "nav-nirmaan",
+      "title": "Nav Nirmaan",
+      "category": "Documentary / Non-Profit",
+      "year": "2024",
+      "description": "Empathetic social documentary spotlighting impactful community initiatives.",
+      "caseStudy": "An empathetic documentary edit created for Nav Nirmaan NGO. The edit focuses on authentic human connection, patient pacing, and natural light grading that honors the subjects and their community contributions.",
+      "videoUrl": "/assets/videos/projects/nav-nirmaan-preview.mp4",
+      "coverUrl": "/assets/images/hero/opengraph-hero.png",
+      "tools": [
+        "Premiere Pro",
+        "Color Grading",
+        "Interview Pacing"
+      ],
+      "galleryUrls": [],
+      "featured": true,
+      "published": true,
+      "displayOrder": 4,
+      "createdAt": "2024-11-05T12:00:00.000Z"
+    }
+  ],
+  "articles": [
+    {
+      "id": "clear-design",
+      "slug": "clear-design",
+      "title": "Building Trust Through Clear Design",
+      "category": "Design Systems",
+      "publicationDate": "May 5, 2025",
+      "readingTime": "4 min read",
+      "excerpt": "How thoughtful visual choices create a stronger sense of reliability for modern brands.",
+      "content": "Visual clarity is not merely an aesthetic preference; it is a foundational pillar of user trust. When motion, typography, and negative space coordinate seamlessly, viewers instinctively perceive competence and reliability.\n\nIn video editing and brand motion, clarity means knowing when not to cut. It means letting a frame breathe, allowing kinetic typography to settle before transitioning, and respecting the viewer's cognitive bandwidth.",
+      "coverUrl": "/assets/images/articles/clear-design-post.png",
+      "published": true,
+      "displayOrder": 1,
+      "createdAt": "2025-05-05T10:00:00.000Z"
+    },
+    {
+      "id": "art-direction",
+      "slug": "art-direction",
+      "title": "The Role of Art Direction in Branding",
+      "category": "Art Direction",
+      "publicationDate": "Jun 16, 2025",
+      "readingTime": "3 min read",
+      "excerpt": "Why visual direction helps brands create emotion and a distinct point of view.",
+      "content": "Art direction provides the conceptual glue that transforms disparate clips into a unified visual experience. It dictates palette discipline, lens choices, motion curves, and typography hierarchies.\n\nGreat art direction gives commercial work emotional resonance, turning promotional footage into memorable visual culture.",
+      "coverUrl": "/assets/images/articles/art-direction-post.png",
+      "published": true,
+      "displayOrder": 2,
+      "createdAt": "2025-06-16T10:00:00.000Z"
+    },
+    {
+      "id": "brand-systems",
+      "slug": "brand-systems",
+      "title": "How Creative Teams Build Brand Systems",
+      "category": "Creative Direction",
+      "publicationDate": "Aug 22, 2025",
+      "readingTime": "5 min read",
+      "excerpt": "Frameworks for scaling visual identity across video, motion, and digital interfaces.",
+      "content": "A brand system is an evolving toolkit. In motion design, this translates to codified easing curves, title lockups, lower-third standards, and color grading LUTs that ensure multiple editors produce consistent brand output.",
+      "coverUrl": "/assets/images/articles/brand-systems-post.png",
+      "published": true,
+      "displayOrder": 3,
+      "createdAt": "2025-08-22T10:00:00.000Z"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "yakoub-kashmiri",
+      "authorName": "Vaibhav",
+      "authorRole": "Independent artist",
+      "quote": "Working with Suraj was a great experience! He handled the complete music video production along with promotional reels, delivering everything with creativity, attention to detail, and a great sense of visual storytelling. From the overall editing to the smallest details, he understood the vision and brought it to life beautifully. The final videos were delivered professionally, and the entire process was smooth. Highly recommended for anyone looking for quality video editing and creative content!",
+      "avatarUrl": "https://jdjtcbgmdppznlvgjpdn.supabase.co/storage/v1/object/public/portfolio-posters/uploads/1793643037878-vaibhav.jpeg",
+      "companyLogo": "/assets/images/testimonials/client-logo-1.png",
+      "displayOrder": 1
+    },
+    {
+      "id": "daniel-k",
+      "authorName": "Daniel K.",
+      "authorRole": "Indie Maker",
+      "quote": "Everything feels intentional, from the visual layout to the motion curves. The attention to detail and creative direction elevated our entire release.",
+      "avatarUrl": "/assets/images/testimonials/daniel-k.jpg",
+      "companyLogo": "/assets/images/testimonials/client-logo-2.png",
+      "displayOrder": 2
+    },
+    {
+      "id": "mark-m",
+      "authorName": "Mark M.",
+      "authorRole": "Startup Founder",
+      "quote": "Saved us weeks of production iterations. We were able to finalize our visual launch quickly, and it still looks completely custom and premium.",
+      "avatarUrl": "/assets/images/testimonials/mark-m.jpg",
+      "companyLogo": "/assets/images/testimonials/client-logo-3.png",
+      "displayOrder": 3
+    },
+    {
+      "id": "omar-h",
+      "authorName": "Omar H.",
+      "authorRole": "Frontend Developer",
+      "quote": "The quality is insane. Clean structure, smooth animations, and super easy to collaborate with. It feels like a premium creative partnership from start to finish.",
+      "avatarUrl": "/assets/images/testimonials/omar-h.jpg",
+      "companyLogo": "/assets/images/testimonials/client-logo-4.png",
+      "displayOrder": 4
+    },
+    {
+      "id": "test-1793644788181",
+      "authorName": "Suraj Meena",
+      "authorRole": "CEO ",
+      "quote": "Bhai  bohot  badhiyaaa  aadmi hai crazy editing  ",
+      "avatarUrl": "/assets/images/testimonials/yakoub-kashmiri.jpg",
+      "companyLogo": "/assets/images/testimonials/client-logo-1.png",
+      "displayOrder": 5
+    }
+  ],
+  "media": [
+    {
+      "id": "media-1793638369308",
+      "fileName": "New Media Link",
+      "fileUrl": "https://youtu.be/vFyx2fG57mE",
+      "mediaType": "video",
+      "title": "Tum Aaye ho",
+      "caption": "Tum aaye  ho official  video",
+      "projectSlug": "tum-aaye-ho",
+      "posterUrl": "https://unsplash.com/photos/woman-in-white-dress-against-ivy-wGaPO_Ka-ts",
+      "aspectRatio": "horizontal",
+      "displayOrder": 130,
+      "published": true,
+      "createdAt": "2026-11-02T16:52:49.309Z"
+    },
+    {
+      "id": "media-1793553204038",
+      "fileName": "20261029_170549.mp4",
+      "fileUrl": "/assets/uploads/1793553204025-20261029_170549.mp4",
+      "mediaType": "video",
+      "title": "WDFWD",
+      "caption": "20261029_170549.mp4",
+      "projectSlug": "tum-aaye-ho",
+      "posterUrl": "",
+      "aspectRatio": "vertical",
+      "displayOrder": 0,
+      "published": true,
+      "createdAt": "2026-11-01T17:13:24.038Z"
+    },
+    {
+      "id": "media-1",
+      "fileName": "tum-aaye-ho-preview.mp4",
+      "fileUrl": "/assets/videos/projects/tum-aaye-ho-preview.mp4",
+      "mediaType": "video",
+      "title": "Main Lyrical Visualizer Cut",
+      "caption": "Typography cadence and vocal timing synchronisation in After Effects.",
+      "projectSlug": "tum-aaye-ho",
+      "aspectRatio": "vertical",
+      "displayOrder": 1,
+      "published": true,
+      "createdAt": "2024-05-10T12:00:00.000Z"
+    },
+    {
+      "id": "media-1b",
+      "fileName": "tum-aaye-ho-preview.mp4",
+      "fileUrl": "/assets/videos/projects/tum-aaye-ho-preview.mp4",
+      "mediaType": "video",
+      "title": "Color Grade & Motion Study",
+      "caption": "Soft film curves and rhythmic cross-dissolve exploration.",
+      "projectSlug": "tum-aaye-ho",
+      "aspectRatio": "vertical",
+      "displayOrder": 2,
+      "published": true,
+      "createdAt": "2024-05-11T14:00:00.000Z"
+    },
+    {
+      "id": "media-2",
+      "fileName": "mm-cafe-preview.mp4",
+      "fileUrl": "/assets/videos/projects/mm-cafe-preview.mp4",
+      "mediaType": "video",
+      "title": "Destination Cafe Showcase",
+      "caption": "Atmospheric acoustic and culinary pacing designed for Instagram engagement.",
+      "projectSlug": "tum-aaye-ho",
+      "aspectRatio": "vertical",
+      "displayOrder": 1,
+      "published": true,
+      "createdAt": "2024-08-15T12:00:00.000Z"
+    },
+    {
+      "id": "media-2b",
+      "fileName": "mm-cafe-preview.mp4",
+      "fileUrl": "/assets/videos/projects/mm-cafe-preview.mp4",
+      "mediaType": "video",
+      "title": "Sensory Kitchen Foley Cut",
+      "caption": "Tactile micro-cuts tuned to natural room acoustics and brew sounds.",
+      "projectSlug": "mm-cafe",
+      "aspectRatio": "vertical",
+      "displayOrder": 2,
+      "published": true,
+      "createdAt": "2024-08-16T15:00:00.000Z"
+    },
+    {
+      "id": "media-2c",
+      "fileName": "mm-cafe-preview.mp4",
+      "fileUrl": "/assets/videos/projects/mm-cafe-preview.mp4",
+      "mediaType": "video",
+      "title": "Acoustic Espresso Pour Cut",
+      "caption": "Slow-motion espresso extraction and natural ambient study.",
+      "projectSlug": "mm-cafe",
+      "aspectRatio": "vertical",
+      "displayOrder": 3,
+      "published": true,
+      "createdAt": "2024-08-17T11:00:00.000Z"
+    },
+    {
+      "id": "media-3",
+      "fileName": "mazuri-preview.mp4",
+      "fileUrl": "/assets/videos/projects/mazuri-preview.mp4",
+      "mediaType": "video",
+      "title": "High-Velocity Culinary Promo",
+      "caption": "Kinetic speed ramp sequence engineered for short-form retention.",
+      "projectSlug": "tum-aaye-ho",
+      "aspectRatio": "vertical",
+      "displayOrder": 1,
+      "published": true,
+      "createdAt": "2025-01-20T12:00:00.000Z"
+    },
+    {
+      "id": "media-3b",
+      "fileName": "mazuri-preview.mp4",
+      "fileUrl": "/assets/videos/projects/mazuri-preview.mp4",
+      "mediaType": "video",
+      "title": "Pan Flare & Flame Acceleration",
+      "caption": "High-frame-rate flame dynamic cut with custom sound fx.",
+      "projectSlug": "mazuri",
+      "aspectRatio": "vertical",
+      "displayOrder": 2,
+      "published": true,
+      "createdAt": "2025-01-21T14:30:00.000Z"
+    },
+    {
+      "id": "media-3c",
+      "fileName": "mazuri-preview.mp4",
+      "fileUrl": "/assets/videos/projects/mazuri-preview.mp4",
+      "mediaType": "video",
+      "title": "Macro Texture Grading Study",
+      "caption": "Rich saturation curves and highlights for commercial food delivery.",
+      "projectSlug": "mazuri",
+      "aspectRatio": "vertical",
+      "displayOrder": 3,
+      "published": true,
+      "createdAt": "2025-01-22T16:00:00.000Z"
+    },
+    {
+      "id": "media-4",
+      "fileName": "nav-nirmaan-preview.mp4",
+      "fileUrl": "/assets/videos/projects/nav-nirmaan-preview.mp4",
+      "mediaType": "video",
+      "title": "Community Documentary Spotlight",
+      "caption": "Empathetic social documentary spotlighting impactful community initiatives.",
+      "projectSlug": "tum-aaye-ho",
+      "aspectRatio": "vertical",
+      "displayOrder": 1,
+      "published": true,
+      "createdAt": "2024-11-05T12:00:00.000Z"
+    },
+    {
+      "id": "media-4b",
+      "fileName": "nav-nirmaan-preview.mp4",
+      "fileUrl": "/assets/videos/projects/nav-nirmaan-preview.mp4",
+      "mediaType": "video",
+      "title": "Portrait Cadence & Interview Edit",
+      "caption": "Patient interview cuts honoring natural speech pauses.",
+      "projectSlug": "nav-nirmaan",
+      "aspectRatio": "vertical",
+      "displayOrder": 2,
+      "published": true,
+      "createdAt": "2024-11-06T14:00:00.000Z"
+    },
+    {
+      "id": "media-4c",
+      "fileName": "nav-nirmaan-preview.mp4",
+      "fileUrl": "/assets/videos/projects/nav-nirmaan-preview.mp4",
+      "mediaType": "video",
+      "title": "Field Audio & Sunlight Rhythm",
+      "caption": "Ambient field recordings blending into natural daylight cinematography.",
+      "projectSlug": "nav-nirmaan",
+      "aspectRatio": "vertical",
+      "displayOrder": 3,
+      "published": true,
+      "createdAt": "2024-11-07T16:00:00.000Z"
+    }
+  ],
+  "messages": [
+    {
+      "name": "Yeshmita",
+      "email": "yeshmitachouhan@gmail.com",
+      "projectDetails": "Hey Suraj you're quite good  at  video editing .",
+      "id": "msg-1793643604801",
+      "status": "read",
+      "createdAt": "2026-11-02T18:20:04.801Z"
+    },
+    {
+      "id": "msg-sample",
+      "name": "Arjun Sharma",
+      "email": "arjun@example.com",
+      "projectDetails": "Looking for a motion graphic title sequence and color grade for an upcoming 6-episode documentary series.",
+      "status": "read",
+      "createdAt": "2026-03-12T14:30:00.000Z"
+    }
+  ]
+}

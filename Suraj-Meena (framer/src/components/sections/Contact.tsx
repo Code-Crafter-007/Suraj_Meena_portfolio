@@ -11,19 +11,47 @@ export const Contact: React.FC = () => {
     email: '',
     project: '',
   });
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.project) return;
-    
-    // Create mailto fallback link and show confirmation
-    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nProject Details:\n${formData.project}`
-    );
-    window.location.href = `mailto:${SITE_METADATA.email}?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+
+    setLoading(true);
+    setErrorMsg('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', project: '' });
+      } else {
+        // Fallback to mailto
+        const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
+        const body = encodeURIComponent(
+          `Name: ${formData.name}\nEmail: ${formData.email}\n\nProject Details:\n${formData.project}`
+        );
+        window.location.href = `mailto:${SITE_METADATA.email}?subject=${subject}&body=${body}`;
+        setSubmitted(true);
+      }
+    } catch {
+      // Network fallback to mailto
+      const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\n\nProject Details:\n${formData.project}`
+      );
+      window.location.href = `mailto:${SITE_METADATA.email}?subject=${subject}&body=${body}`;
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const socials = [
@@ -132,13 +160,35 @@ export const Contact: React.FC = () => {
               {submitted ? (
                 <div className={styles.successMessage}>
                   <h3>Thank you!</h3>
-                  <p>Your message has been initiated. If your mail client didn&apos;t open, email directly at:</p>
-                  <a href={`mailto:${SITE_METADATA.email}`} className={styles.directMail}>
-                    {SITE_METADATA.email}
-                  </a>
+                  <p>Your message has been successfully received. We will get back to you shortly.</p>
+                  <p style={{ marginTop: 8, fontSize: '0.85rem', color: 'rgba(255,255,255,0.45)' }}>
+                    Direct contact: <a href={`mailto:${SITE_METADATA.email}`} className={styles.directMail}>{SITE_METADATA.email}</a>
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSubmitted(false)}
+                    style={{
+                      marginTop: 16,
+                      background: 'none',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      color: '#FAF7F3',
+                      padding: '6px 14px',
+                      borderRadius: 6,
+                      cursor: 'pointer',
+                      fontSize: '0.85rem'
+                    }}
+                  >
+                    Send another message
+                  </button>
                 </div>
               ) : (
                 <form className={styles.form} onSubmit={handleSubmit}>
+                  {errorMsg && (
+                    <div style={{ color: '#ef4444', fontSize: '0.85rem', marginBottom: 12 }}>
+                      {errorMsg}
+                    </div>
+                  )}
+
                   <div className={styles.fieldGroup}>
                     <label htmlFor="contact-name" className={styles.label}>
                       Name
@@ -151,6 +201,7 @@ export const Contact: React.FC = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className={styles.input}
+                      disabled={loading}
                     />
                   </div>
 
@@ -166,6 +217,7 @@ export const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className={styles.input}
+                      disabled={loading}
                     />
                   </div>
 
@@ -181,11 +233,14 @@ export const Contact: React.FC = () => {
                       value={formData.project}
                       onChange={(e) => setFormData({ ...formData, project: e.target.value })}
                       className={styles.textarea}
+                      disabled={loading}
                     />
                   </div>
 
-                  <button type="submit" className={styles.submitBtn}>
-                    <span className={styles.submitText}>Submit</span>
+                  <button type="submit" className={styles.submitBtn} disabled={loading}>
+                    <span className={styles.submitText}>
+                      {loading ? 'Sending...' : 'Submit'}
+                    </span>
                   </button>
                 </form>
               )}

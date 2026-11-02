@@ -15,7 +15,15 @@ import {
 import { Portrait3DCard } from './Portrait3DCard';
 import styles from './HeroBioSection.module.css';
 
-export const HeroBioSection: React.FC = () => {
+interface HeroBioSectionProps {
+  heroPortraitUrl?: string;
+  bioPortraitUrl?: string;
+}
+
+export const HeroBioSection: React.FC<HeroBioSectionProps> = ({
+  heroPortraitUrl,
+  bioPortraitUrl,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
@@ -27,25 +35,23 @@ export const HeroBioSection: React.FC = () => {
   // Must always be <= 0.85 so that rotation finishes reliably before the section ends,
   // preventing the card from remaining tilted on viewports with height <= 800px.
   const [flipEndProgress, setFlipEndProgress] = useState(0.75);
+  const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
-    const updateFlipDistance = () => {
+    const handleResize = () => {
       const vh = window.innerHeight || 800;
+      const vw = window.innerWidth || 1200;
+      setIsDesktop(vw > 1024);
+
       // Target a deliberate flip travel (~650px), clamped safely between 0.55 and 0.85.
-      // This guarantees that rotation reaches exactly 180° on every screen size (including <= 800px)
-      // while leaving ample scroll progress for the settled card to be viewed inside Bio.
       const raw = 650 / vh;
       const clamped = Math.min(0.85, Math.max(0.55, raw));
       setFlipEndProgress(clamped);
     };
 
-    updateFlipDistance();
-
-    window.addEventListener('resize', updateFlipDistance);
-
-    return () => {
-      window.removeEventListener('resize', updateFlipDistance);
-    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Track scrolling within the combined Hero + Bio wrapper.
@@ -70,11 +76,14 @@ export const HeroBioSection: React.FC = () => {
     { clamp: true }
   );
 
-  // Slight vertical movement during the transition.
+  // Vertical emergence: on desktop, the portrait begins slightly tucked behind
+  // the base of the "EDITOR" typography (-75px) with reduced overlap,
+  // and smoothly emerges into Bio (0px).
+  // On mobile/tablet, it reflows naturally with zero offset.
   const translateYRaw = useTransform(
     scrollYProgress,
     [0, flipEndProgress],
-    [-20, 0],
+    [isDesktop ? -75 : 0, 0],
     { clamp: true }
   );
 
@@ -102,13 +111,13 @@ export const HeroBioSection: React.FC = () => {
 
           <div className={styles.titleWrap}>
 
-            {/* Top-left floating ornament */}
+            {/* Top-left floating ornament - STAGE 3 */}
             <motion.div
               initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: shouldReduceMotion ? 0.01 : 0.9,
-                delay: shouldReduceMotion ? 0 : 0.2,
+                duration: shouldReduceMotion ? 0.01 : 0.8,
+                delay: shouldReduceMotion ? 0 : 1.98,
                 ease: [0.16, 1, 0.3, 1],
               }}
               className={styles.holoTopLeft}
@@ -140,14 +149,14 @@ export const HeroBioSection: React.FC = () => {
               </motion.div>
             </motion.div>
 
-            {/* Main headline */}
+            {/* Main headline - STAGE 1 */}
             <h1 className={styles.headline}>
               <span className={styles.wordWrap}>
                 <motion.span
                   initial={
                     shouldReduceMotion
                       ? { opacity: 1, y: 0, filter: 'none' }
-                      : { opacity: 0, y: 18, filter: 'blur(4px)' }
+                      : { opacity: 0, y: 22, filter: 'blur(10px)' }
                   }
                   animate={{
                     opacity: 1,
@@ -155,7 +164,7 @@ export const HeroBioSection: React.FC = () => {
                     filter: 'blur(0px)',
                   }}
                   transition={{
-                    duration: shouldReduceMotion ? 0.01 : 0.8,
+                    duration: shouldReduceMotion ? 0.01 : 0.85,
                     delay: shouldReduceMotion ? 0 : 0.1,
                     ease: [0.16, 1, 0.3, 1],
                   }}
@@ -170,7 +179,7 @@ export const HeroBioSection: React.FC = () => {
                   initial={
                     shouldReduceMotion
                       ? { opacity: 1, y: 0, filter: 'none' }
-                      : { opacity: 0, y: 18, filter: 'blur(4px)' }
+                      : { opacity: 0, y: 22, filter: 'blur(10px)' }
                   }
                   animate={{
                     opacity: 1,
@@ -178,8 +187,8 @@ export const HeroBioSection: React.FC = () => {
                     filter: 'blur(0px)',
                   }}
                   transition={{
-                    duration: shouldReduceMotion ? 0.01 : 0.8,
-                    delay: shouldReduceMotion ? 0 : 0.25,
+                    duration: shouldReduceMotion ? 0.01 : 0.85,
+                    delay: shouldReduceMotion ? 0 : 0.24,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   className={styles.word}
@@ -189,13 +198,13 @@ export const HeroBioSection: React.FC = () => {
               </span>
             </h1>
 
-            {/* Bottom-right floating ornament */}
+            {/* Bottom-right floating ornament - STAGE 3 */}
             <motion.div
               initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: shouldReduceMotion ? 0.01 : 0.9,
-                delay: shouldReduceMotion ? 0 : 0.35,
+                duration: shouldReduceMotion ? 0.01 : 0.8,
+                delay: shouldReduceMotion ? 0 : 2.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
               className={styles.holoBottomRight}
@@ -229,11 +238,14 @@ export const HeroBioSection: React.FC = () => {
 
           </div>
 
-          {/* Bottom information row */}
+          {/* Bottom information row - STAGE 3 */}
           <motion.div
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: shouldReduceMotion ? 0.01 : 0.8, delay: shouldReduceMotion ? 0 : 0.5 }}
+            transition={{
+              duration: shouldReduceMotion ? 0.01 : 0.8,
+              delay: shouldReduceMotion ? 0 : 2.26,
+            }}
             className={styles.bottomInfo}
           >
             <div className={styles.infoLeft}>
@@ -252,16 +264,35 @@ export const HeroBioSection: React.FC = () => {
         </div>
       </section>
 
-      {/* ================= STICKY 3D PORTRAIT ================= */}
+      {/* ================= STICKY 3D PORTRAIT - STAGE 2 ================= */}
       <div className={styles.stickyAvatarWrap}>
         <div className={styles.stickyContainer}>
-          <div className={styles.avatarWrap}>
+          <motion.div
+            initial={
+              shouldReduceMotion
+                ? { opacity: 1, y: 0, filter: 'none' }
+                : { opacity: 0, y: 22, filter: 'blur(8px)' }
+            }
+            animate={{
+              opacity: 1,
+              y: 0,
+              filter: 'blur(0px)',
+            }}
+            transition={{
+              duration: shouldReduceMotion ? 0.01 : 0.85,
+              delay: shouldReduceMotion ? 0 : 1.12,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className={styles.avatarWrap}
+          >
             <Portrait3DCard
               rotateY={rotateY}
               scale={scale}
               translateY={translateY}
+              frontImgUrl={heroPortraitUrl}
+              backImgUrl={bioPortraitUrl}
             />
-          </div>
+          </motion.div>
         </div>
       </div>
 

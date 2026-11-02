@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'motion/react';
 import styles from './Footer.module.css';
 import { SITE_METADATA } from '@/data/site';
+import { InteractiveWordmark } from './InteractiveWordmark';
 
 const CURRENT_YEAR = 2026;
 
@@ -13,8 +14,15 @@ export const Footer: React.FC = () => {
     { label: 'Home', href: '/#hero-section' },
     { label: 'About Me', href: '/#bio-section' },
     { label: 'Services', href: '/#services' },
-    { label: 'Works', href: '/#work-section' },
+    { label: 'Works', href: '/projects' },
     { label: 'Contact', href: '/#contact' },
+  ];
+
+  const socialLinks = [
+    { label: 'Instagram', href: SITE_METADATA.socials.instagramPersonal },
+    { label: 'YouTube', href: SITE_METADATA.socials.youtube },
+    { label: 'LinkedIn', href: SITE_METADATA.socials.linkedin },
+    { label: 'X (Twitter)', href: SITE_METADATA.socials.twitter },
   ];
 
   return (
@@ -51,28 +59,40 @@ export const Footer: React.FC = () => {
               </nav>
             </div>
 
-            {/* Contact Column */}
+            {/* Contact & Social Column */}
             <div className={styles.column}>
               <h4 className={styles.colTitle}>/Contact</h4>
               <div className={styles.contactLinks}>
                 <a href={`mailto:${SITE_METADATA.email}`} className={styles.mailLink}>
                   {SITE_METADATA.email}
                 </a>
+
+                <div className={styles.socialRow}>
+                  {socialLinks.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialLink}
+                    >
+                      {s.label}
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Massive SURAJ Wordmark */}
+        {/* Interactive SURAJ Wordmark */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className={styles.wordmarkWrap}
-          aria-hidden="true"
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className={styles.wordmark}>SURAJ</p>
+          <InteractiveWordmark />
         </motion.div>
 
         {/* Bottom Credits & Copyright */}

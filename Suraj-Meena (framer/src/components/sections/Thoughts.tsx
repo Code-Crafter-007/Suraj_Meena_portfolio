@@ -4,9 +4,17 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'motion/react';
+import { CmsArticle } from '@/types/cms';
 import styles from './Thoughts.module.css';
 
-export const Thoughts: React.FC = () => {
+interface ThoughtsProps {
+  articles?: CmsArticle[];
+}
+
+export const Thoughts: React.FC<ThoughtsProps> = ({ articles }) => {
+  const article1 = articles && articles.length > 0 ? articles[0] : null;
+  const article2 = articles && articles.length > 1 ? articles[1] : null;
+
   return (
     <section className={styles.thoughtsSection} id="thoughts">
       <div className={styles.container}>
@@ -24,7 +32,7 @@ export const Thoughts: React.FC = () => {
 
         {/* 3-Card Desktop Editorial Grid */}
         <div className={styles.cardsGrid}>
-          {/* Card 1: Building Trust Through Clear Design */}
+          {/* Card 1: Article 1 */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -32,29 +40,52 @@ export const Thoughts: React.FC = () => {
             transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className={styles.articleCard}
           >
-            <div className={styles.imageWrap}>
-              <Image
-                src="/assets/images/articles/clear-design-post.png"
-                alt="Building Trust Through Clear Design"
-                width={640}
-                height={360}
-                className={styles.coverImg}
-              />
-              <div className={styles.cardOverlay}>
-                <span className={styles.dateLabel}>May 5, 2025</span>
-                <h3 className={styles.articleTitle}>
-                  Building Trust
-                  <br />
-                  Through Clear Design
-                </h3>
-                <p className={styles.articleSubtitle}>
-                  How thoughtful visual choices create a stronger sense of reliability for modern brands.
-                </p>
+            <Link
+              href={`/thoughts/${article1?.slug || 'clear-design'}`}
+              style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+            >
+              <div className={styles.imageWrap}>
+                <Image
+                  src={article1?.coverUrl || '/assets/images/articles/clear-design-post.png'}
+                  alt={article1?.title || 'Building Trust Through Clear Design'}
+                  width={640}
+                  height={360}
+                  unoptimized={(article1?.coverUrl || '').startsWith('http')}
+                  className={styles.coverImg}
+                />
+                <div className={styles.cardOverlay}>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <span className={styles.dateLabel}>
+                      {article1?.publicationDate || 'May 5, 2025'}
+                    </span>
+                    {article1?.readingTime && (
+                      <span className={styles.dateLabel} style={{ opacity: 0.7 }}>
+                        • {article1.readingTime}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className={styles.articleTitle}>
+                    {article1?.title ? (
+                      article1.title
+                    ) : (
+                      <>
+                        Building Trust
+                        <br />
+                        Through Clear Design
+                      </>
+                    )}
+                  </h3>
+                  <p className={styles.articleSubtitle}>
+                    {article1?.excerpt ||
+                      'How thoughtful visual choices create a stronger sense of reliability for modern brands.'}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           </motion.article>
 
-          {/* Card 2: The Role of Art Direction in Branding */}
+          {/* Card 2: Article 2 */}
           <motion.article
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -62,26 +93,49 @@ export const Thoughts: React.FC = () => {
             transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className={styles.articleCard}
           >
-            <div className={styles.imageWrap}>
-              <Image
-                src="/assets/images/articles/art-direction-post.png"
-                alt="The Role of Art Direction in Branding"
-                width={640}
-                height={360}
-                className={styles.coverImg}
-              />
-              <div className={styles.cardOverlay}>
-                <span className={styles.dateLabel}>Jun 16, 2025</span>
-                <h3 className={styles.articleTitle}>
-                  The Role of Art
-                  <br />
-                  Direction in Branding
-                </h3>
-                <p className={styles.articleSubtitle}>
-                  Why visual direction helps brands create emotion and a distinct point of view.
-                </p>
+            <Link
+              href={`/thoughts/${article2?.slug || 'art-direction'}`}
+              style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+            >
+              <div className={styles.imageWrap}>
+                <Image
+                  src={article2?.coverUrl || '/assets/images/articles/art-direction-post.png'}
+                  alt={article2?.title || 'The Role of Art Direction in Branding'}
+                  width={640}
+                  height={360}
+                  unoptimized={(article2?.coverUrl || '').startsWith('http')}
+                  className={styles.coverImg}
+                />
+                <div className={styles.cardOverlay}>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <span className={styles.dateLabel}>
+                      {article2?.publicationDate || 'Jun 16, 2025'}
+                    </span>
+                    {article2?.readingTime && (
+                      <span className={styles.dateLabel} style={{ opacity: 0.7 }}>
+                        • {article2.readingTime}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className={styles.articleTitle}>
+                    {article2?.title ? (
+                      article2.title
+                    ) : (
+                      <>
+                        The Role of Art
+                        <br />
+                        Direction in Branding
+                      </>
+                    )}
+                  </h3>
+                  <p className={styles.articleSubtitle}>
+                    {article2?.excerpt ||
+                      'Why visual direction helps brands create emotion and a distinct point of view.'}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           </motion.article>
 
           {/* Card 3: Solid Black Editorial Card */}
@@ -105,8 +159,8 @@ export const Thoughts: React.FC = () => {
                 our blog
               </h3>
 
-              <Link href="#work-section" className={styles.ctaButton}>
-                <span className={styles.btnText}>View All Work</span>
+              <Link href="/thoughts" className={styles.ctaButton}>
+                <span className={styles.btnText}>Explore Journal</span>
                 <div className={styles.arrowIconWrap}>
                   <svg
                     className={styles.arrowSvg}

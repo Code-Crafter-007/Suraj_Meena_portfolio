@@ -1,0 +1,90 @@
+.locatorContainer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99999;
+  overflow: hidden;
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.locatorVisible {
+  opacity: 1;
+}
+
+.hLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.26);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.vLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.26);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  margin-left: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.markerDot {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.coords {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 8px;
+  margin-left: 10px;
+  font-family: var(--font-sans, monospace);
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+  pointer-events: none;
+  will-change: transform;
+  user-select: none;
+}
+
+/* Hide on touch devices and coarse pointer screens */
+@media (hover: none), (pointer: coarse) {
+  .locatorContainer {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .locatorContainer {
+    display: none !important;
+  }
+}
+

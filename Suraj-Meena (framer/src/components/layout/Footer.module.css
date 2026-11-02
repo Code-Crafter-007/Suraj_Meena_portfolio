@@ -1,61 +1,66 @@
+
 .footer {
   width: 100%;
-  background-color: var(--color-text-primary, #111111);
-  color: var(--color-background, #FAF7F3);
-  padding: 100px 32px 40px;
+  background-color: #0b0b0d;
+  color: #FAF7F3;
+  padding: 120px 32px 36px;
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-/* Top Row: Heading on left, Columns on right */
+/* ==============================
+   TOP ROW
+============================== */
+
 .topRow {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 60px;
-  margin-bottom: 80px;
+  margin-bottom: 64px;
 }
 
 .headingWrap {
-  max-width: 460px;
+  max-width: 380px;
+  flex-shrink: 0;
 }
 
 .heading {
-  font-family: var(--font-primary, 'Archivo', sans-serif);
-  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: clamp(2.4rem, 4.4vw, 3.8rem);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   color: #FAF7F3;
   margin: 0;
 }
 
 .columns {
   display: flex;
-  gap: 80px;
+  gap: 72px;
   align-items: flex-start;
 }
 
 .column {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .colTitle {
-  font-family: var(--font-primary, 'Archivo', sans-serif);
-  font-size: 1rem;
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.9rem;
   font-weight: 500;
-  color: rgba(250, 247, 243, 0.5);
+  color: rgba(250, 247, 243, 0.4);
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -64,19 +69,21 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  max-width: 240px;
+  max-width: 250px;
 }
 
 .quickLink {
-  background-color: var(--color-background, #FAF7F3);
+  background-color: #FAF7F3;
   color: #111111;
   text-decoration: none;
-  font-family: var(--font-primary, 'Archivo', sans-serif);
-  font-size: 0.875rem;
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.85rem;
   font-weight: 500;
-  padding: 6px 14px;
-  border-radius: 8px;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -91,6 +98,10 @@
   letter-spacing: -0.01em;
 }
 
+/* ==============================
+   CONTACT & SOCIAL
+============================== */
+
 .contactLinks {
   display: flex;
   flex-direction: column;
@@ -100,11 +111,11 @@
 .mailLink {
   color: #FAF7F3;
   text-decoration: none;
-  font-family: var(--font-primary, 'Archivo', sans-serif);
-  font-size: 1rem;
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.95rem;
   font-weight: 500;
-  opacity: 0.85;
-  transition: opacity 0.2s ease, text-decoration-color 0.2s ease;
+  opacity: 0.88;
+  transition: opacity 0.2s ease;
 }
 
 .mailLink:hover {
@@ -112,40 +123,105 @@
   text-decoration: underline;
 }
 
-/* Massive SURAJ Wordmark */
+.socialRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.socialLink {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.85rem;
+  color: rgba(250, 247, 243, 0.55);
+  text-decoration: none;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.socialLink:hover {
+  color: #FAF7F3;
+  transform: translateX(2px);
+}
+
+/* ==============================
+   INTERACTIVE SURAJ WORDMARK
+============================== */
+
 .wordmarkWrap {
   width: 100%;
+  height: clamp(320px, 32vw, 420px);
+
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+
+  position: relative;
+  overflow: visible;
+  box-sizing: border-box;
+
   user-select: none;
-  pointer-events: none;
-  overflow: hidden;
-  padding: 40px 0 20px;
+  line-height: 0.65;
+  pointer-events: auto;
+
+  padding: 20px 0 0;
+  margin-bottom: -15px;
+
+  cursor: default;
 }
 
 .wordmark {
-  font-family: var(--font-heading, 'Bebas Neue', sans-serif);
-  font-size: clamp(6rem, 23vw, 22rem);
-  font-weight: 700;
-  line-height: 0.82;
-  letter-spacing: -0.02em;
-  color: rgba(250, 247, 243, 0.08);
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: clamp(5.5rem, 20vw, 19.5rem);
+  font-weight: 900;
+  line-height: 0.68;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+
   margin: 0;
   text-align: center;
   text-transform: uppercase;
+  white-space: nowrap;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  width: 100%;
+  max-width: 100%;
+
+  position: relative;
+  z-index: 1;
 }
 
-/* Bottom Bar */
+.interactiveLetter {
+  display: inline-block;
+  position: relative;
+
+  color: #FFFFFF;
+  font-weight: 900;
+
+  will-change: transform;
+  transform-origin: center center;
+
+  text-shadow: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+/* ==============================
+   BOTTOM BAR
+============================== */
+
 .bottomBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 32px;
-  border-top: 1px solid rgba(250, 247, 243, 0.1);
-  font-family: var(--font-primary, 'Archivo', sans-serif);
-  font-size: 0.875rem;
-  color: rgba(250, 247, 243, 0.5);
+
+  padding-top: 24px;
+  border-top: 1px solid rgba(250, 247, 243, 0.08);
+
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.825rem;
+  color: rgba(250, 247, 243, 0.45);
 }
 
 .copyright,
@@ -153,27 +229,55 @@
   margin: 0;
 }
 
-/* Responsive */
+/* ==============================
+   TABLET
+============================== */
+
 @media (max-width: 900px) {
+  .footer {
+    padding: 90px 32px 20px;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
   .topRow {
     flex-direction: column;
     gap: 48px;
-    margin-bottom: 60px;
+    margin-bottom: 48px;
+  }
+
+  .headingWrap {
+    max-width: 460px;
   }
 
   .columns {
-    gap: 60px;
+    gap: 48px;
   }
 
-  .footer {
-    padding: 70px 24px 32px;
+  .wordmarkWrap {
+    height: clamp(270px, 36vw, 340px);
+  }
+
+  .wordmark {
+    font-size: 21vw;
+    line-height: 0.72;
   }
 }
 
+/* ==============================
+   MOBILE
+============================== */
+
 @media (max-width: 600px) {
+  .footer {
+    padding: 60px 18px 24px;
+  }
+
   .columns {
     flex-direction: column;
-    gap: 36px;
+    gap: 32px;
   }
 
   .bottomBar {
@@ -182,7 +286,35 @@
     text-align: center;
   }
 
-  .footer {
-    padding: 60px 18px 28px;
+  .wordmarkWrap {
+    height: 230px;
+    padding-top: 16px;
+  }
+
+  .wordmark {
+    font-size: 20.5vw;
+    line-height: 0.72;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* ==============================
+   REDUCED MOTION
+============================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .quickLink,
+  .mailLink,
+  .socialLink {
+    transition: none;
+  }
+
+  .quickLink:hover,
+  .socialLink:hover {
+    transform: none;
+  }
+
+  .interactiveLetter {
+    will-change: auto;
   }
 }

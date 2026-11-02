@@ -1,4 +1,5 @@
 import React from 'react';
+import { getProjects, getArticles, getTestimonials, getSiteSettings } from '@/lib/cms';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroBioSection } from '@/components/sections/HeroBioSection';
 import { Manifesto } from '@/components/sections/Manifesto';
@@ -9,16 +10,26 @@ import { Thoughts } from '@/components/sections/Thoughts';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/layout/Footer';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [projects, articles, testimonials, siteSettings] = await Promise.all([
+    getProjects(true),
+    getArticles(true),
+    getTestimonials(),
+    getSiteSettings(),
+  ]);
+
   return (
     <main>
       <Navbar />
-      <HeroBioSection />
+      <HeroBioSection
+        heroPortraitUrl={siteSettings.heroPortraitUrl}
+        bioPortraitUrl={siteSettings.bioPortraitUrl}
+      />
       <Manifesto />
       <Services />
-      <FeaturedWork />
-      <Testimonials />
-      <Thoughts />
+      <FeaturedWork projects={projects} />
+      <Testimonials testimonials={testimonials} />
+      <Thoughts articles={articles} />
       <Contact />
       <Footer />
     </main>

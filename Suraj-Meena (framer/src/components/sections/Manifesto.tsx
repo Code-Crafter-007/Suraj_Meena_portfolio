@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, MotionValue } from 'motion/react';
+import { motion, useScroll, useTransform, useReducedMotion, MotionValue } from 'motion/react';
 import styles from './Manifesto.module.css';
 
 const WORDS = [
@@ -16,54 +16,74 @@ interface WordProps {
   index: number;
   total: number;
   progress: MotionValue<number>;
+  shouldReduceMotion: boolean | null;
 }
 
-const WordItem: React.FC<WordProps> = ({ word, index, total, progress }) => {
-  // Map this word's active reveal window across section scroll progress
-  // Active window between 0.15 and 0.85 of section progress
-  const start = 0.15 + (index / total) * 0.7;
-  const end = start + (1 / total) * 0.7;
+const WordItem: React.FC<WordProps> = ({
+  word,
+  index,
+  total,
+  progress,
+  shouldReduceMotion,
+}) => {
+  // Stagger words across the scroll-progress window [0.04, 0.84]
+  // With 1.85 overlap for cinematic editorial continuity
+  // All words reach 100% sharpness and full opacity by ~0.84,
+  // providing a comfortable reading pause [0.84 -> 1.0] before release
+  const step = 0.78 / total;
+  const start = 0.04 + index * step;
+  const end = Math.min(0.86, start + step * 1.85);
 
-  // Fully reversible scroll color mapping:
-  // Before word start: muted opacity / grey color rgba(17, 17, 17, 0.12)
-  // After word end: full dark color rgb(17, 17, 17)
-  const color = useTransform(
-    progress,
-    [start, end],
-    ['rgba(17, 17, 17, 0.15)', 'rgb(17, 17, 17)']
-  );
+  const opacity = useTransform(progress, [start, end], [0.12, 1]);
+  const blur = useTransform(progress, [start, end], [8, 0]);
+  const filter = useTransform(blur, (v) => `blur(${v.toFixed(1)}px)`);
+  const y = useTransform(progress, [start, end], [6, 0]);
+
+  if (shouldReduceMotion) {
+    return <span className={styles.word}>{word} </span>;
+  }
 
   return (
-    <motion.span style={{ color }} className={styles.word}>
+    <motion.span
+      style={{
+        opacity,
+        filter,
+        y,
+      }}
+      className={styles.word}
+    >
       {word}{' '}
     </motion.span>
   );
 };
 
 export const Manifesto: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
-  // Track section scroll progress through viewport
-  // Starts when top of section enters viewport bottom ('start end'), completes when bottom leaves top ('end start')
-  // We use ['start 0.8', 'end 0.3'] for perfectly centered scroll engagement
+  // Track sticky scroll progress from the moment the track enters top of viewport (start start)
+  // until the 240vh track finishes scrolling (end end)
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start 0.85', 'end 0.35'],
+    target: trackRef,
+    offset: ['start start', 'end end'],
   });
 
   return (
-    <section ref={containerRef} className={styles.quoteSection} id="manifesto">
-      <div className={styles.container}>
-        <div className={styles.quoteBlock}>
-          {WORDS.map((word, idx) => (
-            <WordItem
-              key={`${word}-${idx}`}
-              word={word}
-              index={idx}
-              total={WORDS.length}
-              progress={scrollYProgress}
-            />
-          ))}
+    <section ref={trackRef} className={styles.stickyTrack} id="manifesto">
+      <div className={styles.stickyViewport}>
+        <div className={styles.container}>
+          <div className={styles.quoteBlock}>
+            {WORDS.map((word, idx) => (
+              <WordItem
+                key={`${word}-${idx}`}
+                word={word}
+                index={idx}
+                total={WORDS.length}
+                progress={scrollYProgress}
+                shouldReduceMotion={shouldReduceMotion}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,0 +1,534 @@
+/* ========================================================
+   CINEMATIC 3D VIDEO CAROUSEL (COVERFLOW)
+   ======================================================== */
+
+.carouselSection {
+  margin: 72px 0 96px;
+  width: 100%;
+  position: relative;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 44px;
+}
+
+.eyebrow {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(17, 17, 17, 0.45);
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.title {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #111111;
+  margin: 0 0 10px;
+  line-height: 1.12;
+}
+
+.subtitle {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: rgba(17, 17, 17, 0.6);
+  margin: 0;
+}
+
+/* 3D Perspective Stage */
+.stageContainer {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  perspective-origin: center center;
+  overflow: hidden;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.carouselTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+/* Individual Card Motion Wrapper */
+.cardMotionWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  cursor: pointer;
+}
+
+/* Phone / Bezel Frame Container */
+.deviceCard {
+  width: 320px;
+  height: 570px;
+  background-color: #0d0d11;
+  border: 6px solid #16161a;
+  border-radius: 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.22),
+    0 6px 16px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.deviceCard.active {
+  border-color: #26262e;
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.3),
+    0 10px 24px rgba(0, 0, 0, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+/* Top Dynamic Island / Notch */
+.notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72px;
+  height: 17px;
+  background-color: #000000;
+  border-radius: 9999px;
+  z-index: 15;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Video Canvas */
+.videoLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  z-index: 1;
+}
+
+.videoElement {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Fullscreen Aspect Ratio Preservation: ensure video displays in its EXACT native aspect ratio */
+.videoElement:fullscreen,
+.videoElement:-webkit-full-screen,
+.videoElement:-moz-full-screen,
+.videoElement:-ms-fullscreen {
+  object-fit: contain !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: #000000 !important;
+}
+
+/* Overlay Fade System */
+.overlayElement {
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s ease;
+  will-change: opacity;
+}
+
+.overlayHidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden;
+}
+
+.overlayVisible {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Vignette Gradients */
+.gradientTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 130px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.gradientBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Header Text Inside Card */
+.cardHeader {
+  position: absolute;
+  top: 36px;
+  left: 20px;
+  right: 20px;
+  z-index: 10;
+  text-align: center;
+}
+
+.cardCategory {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 4px;
+}
+
+.cardTitle {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0 0 3px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.cardCaption {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.35;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Center Play / Pause Frosted Glass Trigger */
+.centerControl {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 12;
+  pointer-events: auto;
+}
+
+.playCircle {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+}
+
+.playCircle:hover {
+  transform: scale(1.08);
+  background: #ffffff;
+}
+
+.playCircle:active {
+  transform: scale(0.96);
+}
+
+/* Bottom Card Action Pill */
+.cardFooter {
+  position: absolute;
+  bottom: 22px;
+  left: 20px;
+  right: 20px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+}
+
+.actionPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #111111;
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.actionPill:hover {
+  transform: translateY(-2px);
+  background-color: #ffffff;
+}
+
+.actionPill:active {
+  transform: translateY(0);
+}
+
+/* Fullscreen / Audio quick toggles in corners */
+.cornerButton {
+  position: absolute;
+  bottom: 22px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(17, 17, 20, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 12;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cornerButton:hover {
+  background: rgba(17, 17, 20, 0.9);
+  transform: scale(1.06);
+}
+
+/* Floating Navigation Arrows on Left and Right */
+.navArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FAF7F3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 30;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+}
+
+.navArrow:hover {
+  transform: translateY(-50%) scale(1.08);
+  background-color: #000000;
+}
+
+.navArrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.navArrowLeft {
+  left: 24px;
+}
+
+.navArrowRight {
+  right: 24px;
+}
+
+/* Bottom Pagination & Indicators */
+.paginationRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.dotsContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  height: 6px;
+  border-radius: 9999px;
+  background-color: rgba(17, 17, 17, 0.2);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dotInactive {
+  width: 6px;
+}
+
+.dotInactive:hover {
+  background-color: rgba(17, 17, 17, 0.45);
+}
+
+.dotActive {
+  width: 24px;
+  background-color: #111111;
+}
+
+.counterLabel {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(17, 17, 17, 0.5);
+  letter-spacing: 0.04em;
+}
+
+/* Empty or Single Card Layout */
+.singleCardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.emptyNotice {
+  text-align: center;
+  padding: 48px 24px;
+  background-color: #ffffff;
+  border: 1px dashed rgba(17, 17, 17, 0.15);
+  border-radius: 16px;
+  color: rgba(17, 17, 17, 0.55);
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .stageContainer {
+    height: 560px;
+    perspective: 1000px;
+  }
+
+  .deviceCard {
+    width: 280px;
+    height: 500px;
+    border-radius: 34px;
+    border-width: 5px;
+  }
+
+  .navArrowLeft {
+    left: 12px;
+  }
+
+  .navArrowRight {
+    right: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .carouselSection {
+    margin: 48px 0 64px;
+  }
+
+  .sectionHeader {
+    margin-bottom: 28px;
+    padding: 0 16px;
+  }
+
+  .stageContainer {
+    height: 500px;
+    perspective: 800px;
+  }
+
+  .deviceCard {
+    width: 250px;
+    height: 450px;
+    border-radius: 30px;
+    border-width: 4px;
+  }
+
+  .notch {
+    width: 60px;
+    height: 14px;
+    top: 10px;
+  }
+
+  .cardHeader {
+    top: 28px;
+    left: 14px;
+    right: 14px;
+  }
+
+  .cardTitle {
+    font-size: 0.95rem;
+  }
+
+  .cardCaption {
+    font-size: 0.72rem;
+  }
+
+  .playCircle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .navArrow {
+    width: 42px;
+    height: 42px;
+  }
+
+  .navArrowLeft {
+    left: 8px;
+  }
+
+  .navArrowRight {
+    right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stageContainer {
+    height: 460px;
+  }
+
+  .deviceCard {
+    width: 230px;
+    height: 410px;
+    border-radius: 26px;
+  }
+
+  .navArrow {
+    display: none; /* Rely on fluid drag/swipe on small mobile screens */
+  }
+}
+

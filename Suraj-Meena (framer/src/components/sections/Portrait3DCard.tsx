@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -10,14 +9,19 @@ interface Portrait3DCardProps {
   rotateY: MotionValue<number>;
   scale?: MotionValue<number>;
   translateY?: MotionValue<number>;
+  frontImgUrl?: string;
+  backImgUrl?: string;
 }
 
 export const Portrait3DCard: React.FC<Portrait3DCardProps> = ({
   rotateY,
   scale,
   translateY,
+  frontImgUrl,
+  backImgUrl,
 }) => {
-  const portrait = '/assets/images/about/creator-portrait-front.png';
+  const frontImg = frontImgUrl || '/assets/images/about/creator-portrait-front.png';
+  const backImg = backImgUrl || frontImg;
 
   return (
     <div className={styles.perspectiveWrap}>
@@ -29,26 +33,28 @@ export const Portrait3DCard: React.FC<Portrait3DCardProps> = ({
         }}
         className={styles.card3D}
       >
-        {/* FRONT: Same portrait with grayscale filter */}
+        {/* FRONT: Front face portrait with grayscale styling */}
         <div className={`${styles.face} ${styles.frontFace}`}>
           <Image
-            src={portrait}
+            src={frontImg}
             alt="Suraj Meena - Grayscale Portrait"
             width={1448}
             height={1086}
             priority
+            unoptimized={frontImg.startsWith('http')}
             className={`${styles.portraitImg} ${styles.frontImg}`}
           />
         </div>
 
-        {/* BACK: Original full-colour portrait */}
+        {/* BACK: Full-colour portrait */}
         <div className={`${styles.face} ${styles.backFace}`}>
           <Image
-            src={portrait}  
+            src={backImg}
             alt="Suraj Meena - Colour Portrait"
             width={1448}
             height={1086}
             priority
+            unoptimized={backImg.startsWith('http')}
             className={`${styles.portraitImg} ${styles.backImg}`}
           />
         </div>

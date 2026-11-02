@@ -1,8 +1,9 @@
 .testimonialsSection {
   position: relative;
   width: 100%;
-  padding: 80px 0 120px;
+  padding: 90px 0 120px;
   background-color: var(--color-bg-primary, #FAF7F3);
+  overflow: hidden;
 }
 
 .container {
@@ -12,13 +13,13 @@
   padding: 0 var(--container-gutter, 32px);
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 36px;
 }
 
 .headerRow {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -32,42 +33,130 @@
   margin: 0;
 }
 
-/* 4-Card Horizontal Row on Desktop */
-.cardsRow {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+/* Minimal Cream/Off-White Carousel Navigation Controls */
+.controlsRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navButton {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  color: #111111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  outline: none;
+}
+
+.navButton:hover:not(.disabled) {
+  transform: scale(1.08);
+  background-color: #FAF7F3;
+  border-color: rgba(17, 17, 17, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.navButton:active:not(.disabled) {
+  transform: scale(0.96);
+}
+
+.navButton.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Strict Single-Row Carousel Viewport */
+.carouselViewport {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 8px 0;
+}
+
+.carouselTrack {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap !important; /* Testimonials must NEVER wrap into another row */
   gap: 20px;
   width: 100%;
+  will-change: transform;
 }
 
 .cardItem {
-  width: 100%;
+  flex-shrink: 0;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .cardInner {
   background-color: #111111;
   color: #FAF7F3;
   border-radius: 16px;
-  padding: 32px 28px;
+  padding: 28px 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 380px;
+  height: 380px; /* Fixed, uniform height */
+  box-sizing: border-box;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  border: 1px solid rgba(250, 247, 243, 0.06);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
 }
 
 .cardInner:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+  border-color: rgba(250, 247, 243, 0.14);
+}
+
+.cardTop {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0; /* Necessary for inner text scrolling */
+  margin-bottom: 16px;
+}
+
+.logoSlot {
+  height: 28px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.quoteScrollArea {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(250, 247, 243, 0.18) transparent;
+}
+
+.quoteScrollArea::-webkit-scrollbar {
+  width: 3px;
+}
+
+.quoteScrollArea::-webkit-scrollbar-thumb {
+  background-color: rgba(250, 247, 243, 0.18);
+  border-radius: 4px;
 }
 
 .quoteText {
   font-family: var(--font-display, 'Archivo', sans-serif);
-  font-size: 15px;
+  font-size: 14.5px;
   line-height: 1.6;
   color: #FAF7F3;
-  opacity: 0.9;
+  opacity: 0.92;
   margin: 0;
 }
 
@@ -75,7 +164,10 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(250, 247, 243, 0.08);
+  flex-shrink: 0;
+  margin-top: auto;
 }
 
 .avatarWrap {
@@ -98,6 +190,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
 }
 
 .authorName {
@@ -105,27 +198,29 @@
   font-size: 14px;
   font-weight: 600;
   color: #FAF7F3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .authorRole {
   font-family: var(--font-display, 'Archivo', sans-serif);
   font-size: 12px;
   color: rgba(250, 247, 243, 0.6);
-}
-
-@media (max-width: 1024px) {
-  .cardsRow {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 600px) {
-  .cardsRow {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
   .testimonialsSection {
-    padding: 50px 0 80px;
+    padding: 60px 0 80px;
+  }
+  .cardInner {
+    height: 350px;
+  }
+  .navButton {
+    width: 38px;
+    height: 38px;
   }
 }

@@ -1,0 +1,115 @@
+.archiveSection {
+  min-height: 100vh;
+  background-color: var(--color-bg-primary, #FAF7F3);
+  padding: 140px 32px 100px;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 48px;
+}
+
+.breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.85rem;
+  color: rgba(17, 17, 17, 0.5);
+  margin-bottom: 16px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb:hover {
+  color: var(--color-text-primary, #111111);
+}
+
+.title {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary, #111111);
+  margin: 0 0 16px;
+}
+
+.subtitle {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.5;
+  color: rgba(17, 17, 17, 0.65);
+  max-width: 580px;
+  margin: 0;
+}
+
+/* Category Filter Pills */
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 56px;
+}
+
+.filterPill {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background-color: rgba(17, 17, 17, 0.05);
+  color: rgba(17, 17, 17, 0.7);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filterPill:hover {
+  background-color: rgba(17, 17, 17, 0.1);
+  color: #111111;
+}
+
+.filterPillActive {
+  background-color: #111111;
+  color: #FAF7F3;
+  border-color: #111111;
+}
+
+/* Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 40px 24px;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .archiveSection {
+    padding: 120px 24px 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .archiveSection {
+    padding: 100px 18px 60px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
+

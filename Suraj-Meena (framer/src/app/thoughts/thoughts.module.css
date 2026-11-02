@@ -1,0 +1,208 @@
+.thoughtsPage {
+  min-height: 100vh;
+  background-color: var(--color-bg-primary, #FAF7F3);
+  padding: 140px 32px 100px;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.85rem;
+  color: rgba(17, 17, 17, 0.5);
+  margin-bottom: 20px;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.breadcrumb:hover {
+  color: #111111;
+  transform: translateX(-3px);
+}
+
+.header {
+  margin-bottom: 56px;
+}
+
+.title {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary, #111111);
+  margin: 0 0 16px;
+}
+
+.subtitle {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.6;
+  color: rgba(17, 17, 17, 0.65);
+  max-width: 620px;
+  margin: 0;
+}
+
+/* Category Filter Pills */
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 48px;
+}
+
+.filterPill {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background-color: rgba(17, 17, 17, 0.05);
+  color: rgba(17, 17, 17, 0.7);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filterPill:hover {
+  background-color: rgba(17, 17, 17, 0.1);
+  color: #111111;
+}
+
+.filterPillActive {
+  background-color: #111111;
+  color: #FAF7F3;
+  border-color: #111111;
+}
+
+/* Articles Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 40px 32px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border-color: rgba(17, 17, 17, 0.16);
+}
+
+.imageWrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  background-color: #121215;
+}
+
+.coverImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .coverImg {
+  transform: scale(1.04);
+}
+
+.cardContent {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.8rem;
+  color: rgba(17, 17, 17, 0.5);
+  font-weight: 500;
+}
+
+.category {
+  color: #111111;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  background-color: rgba(17, 17, 17, 0.06);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.cardTitle {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #111111;
+  margin: 0 0 12px;
+}
+
+.excerpt {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(17, 17, 17, 0.65);
+  margin: 0 0 20px;
+  flex: 1;
+}
+
+.readMore {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111111;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  transition: transform 0.2s ease;
+}
+
+.card:hover .readMore {
+  transform: translateX(4px);
+}
+
+@media (max-width: 900px) {
+  .thoughtsPage {
+    padding: 120px 24px 80px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .thoughtsPage {
+    padding: 100px 18px 60px;
+  }
+}
+

@@ -1,0 +1,195 @@
+.processSection {
+  width: 100%;
+  padding: 80px 0 100px;
+  background-color: var(--color-bg-primary, #FAF7F3);
+  position: relative;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max, 1180px);
+  margin: 0 auto;
+  padding: 0 var(--container-gutter, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.sectionHeader {
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.eyebrow {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(17, 17, 17, 0.45);
+}
+
+.sectionTitle {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.sectionIntro {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: rgba(17, 17, 17, 0.7);
+  margin: 0;
+}
+
+/* Steps List */
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.stepCard {
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 40px;
+  align-items: center;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.stepCard:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  border-color: rgba(17, 17, 17, 0.16);
+}
+
+.stepMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stepHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepBadge {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background-color: #111111;
+  color: #FAF7F3;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  display: inline-block;
+}
+
+.stepTitle {
+  font-family: var(--font-display, 'Archivo', sans-serif);
+  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.stepDescription {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(17, 17, 17, 0.72);
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* Step Media Surface */
+.stepMediaWrapper {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #0c0c0e;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.mediaFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000000;
+  overflow: hidden;
+}
+
+.mediaImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mediaVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.mediaIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.mediaCaption {
+  padding: 10px 14px;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.78rem;
+  color: rgba(250, 247, 243, 0.75);
+  background-color: #16161a;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Tablet & Mobile Layout */
+@media (max-width: 900px) {
+  .stepCard {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 28px 24px;
+  }
+
+  .processSection {
+    padding: 60px 0 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .stepCard {
+    padding: 22px 18px;
+  }
+
+  .mediaFrame {
+    aspect-ratio: 16 / 10;
+  }
+}
+

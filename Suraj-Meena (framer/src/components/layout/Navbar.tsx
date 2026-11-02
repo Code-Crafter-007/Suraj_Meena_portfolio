@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import styles from './Navbar.module.css';
 
 interface NavItem {
@@ -11,27 +11,37 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Home', href: '#hero-section' },
-  { label: 'About Me', href: '#bio-section' },
-  { label: 'Services', href: '#services' },
-  { label: 'Works', href: '#work-section' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/#hero-section' },
+  { label: 'About Me', href: '/#bio-section' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Works', href: '/projects' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <header className={styles.headerWrapper}>
       <motion.nav
-        initial={{ y: -20, opacity: 0 }}
+        initial={shouldReduceMotion ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{
+          duration: shouldReduceMotion ? 0.01 : 0.65,
+          delay: shouldReduceMotion ? 0 : 2.18,
+          ease: [0.16, 1, 0.3, 1],
+        }}
         className={styles.navPill}
       >
         <div className={styles.bar}>
-          <Link href="#hero-section" className={styles.brandName}>
-            Suraj
+          <Link href="/#hero-section" className={styles.brandName}>
+            <span className={styles.rollTrack}>
+              <span className={styles.rollFace}>Suraj</span>
+              <span className={styles.rollBack} aria-hidden="true">
+                Suraj
+              </span>
+            </span>
           </Link>
 
           <button
@@ -70,7 +80,12 @@ export const Navbar: React.FC = () => {
                       className={styles.navLink}
                       onClick={() => setIsOpen(false)}
                     >
-                      {item.label}
+                      <span className={styles.rollTrack}>
+                        <span className={styles.rollFace}>{item.label}</span>
+                        <span className={styles.rollBack} aria-hidden="true">
+                          {item.label}
+                        </span>
+                      </span>
                     </Link>
                   </motion.li>
                 ))}

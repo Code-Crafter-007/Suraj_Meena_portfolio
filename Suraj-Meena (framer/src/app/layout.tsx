@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Archivo, Bebas_Neue } from 'next/font/google';
 import { clashGrotesk } from '@/lib/fonts';
+import { CustomCursor } from '@/components/ui/CustomCursor';
 import './globals.css';
 
 const inter = Inter({
@@ -25,6 +26,7 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://suraj-meena.framer.website'),
   title: 'Suraj Meena | Visual Editor & Motion Designer',
   description:
     'Portfolio of Suraj Meena. Video editor and motion designer turning raw footage into work that holds attention.',
@@ -49,7 +51,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${archivo.variable} ${bebasNeue.variable} ${clashGrotesk.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }

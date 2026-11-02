@@ -5,9 +5,25 @@ import Link from 'next/link';
 import { motion } from 'motion/react';
 import { ProjectCard } from '@/components/ui/ProjectCard';
 import { PROJECTS_DATA } from '@/data/projects';
+import { CmsProject } from '@/types/cms';
 import styles from './FeaturedWork.module.css';
 
-export const FeaturedWork: React.FC = () => {
+interface WorkItem {
+  id: string;
+  title: string;
+  description: string;
+  videoUrl: string;
+  slug?: string;
+}
+
+interface FeaturedWorkProps {
+  projects?: CmsProject[];
+}
+
+export const FeaturedWork: React.FC<FeaturedWorkProps> = ({ projects }) => {
+  const displayProjects: WorkItem[] =
+    projects && projects.length > 0 ? projects : PROJECTS_DATA;
+
   return (
     <section className={styles.projectsSection} id="work-section">
       <div className={styles.container}>
@@ -25,7 +41,7 @@ export const FeaturedWork: React.FC = () => {
             <span>Projects</span>
           </motion.h2>
 
-          <Link href="#work-section" className={styles.viewAllButton}>
+          <Link href="/projects" className={styles.viewAllButton}>
             <span className={styles.btnText}>View All Work</span>
             <div className={styles.arrowIconWrap}>
               <span className={styles.arrowBg} />
@@ -47,15 +63,19 @@ export const FeaturedWork: React.FC = () => {
 
         {/* Project Video Cards Grid */}
         <div className={styles.projectsGrid}>
-          {PROJECTS_DATA.map((project, idx) => (
-            <ProjectCard
-              key={project.id}
-              title={project.title}
-              description={project.description}
-              videoUrl={project.videoUrl}
-              delay={idx * 0.1}
-            />
-          ))}
+          {displayProjects.map((project, idx) => {
+            const projectSlug = project.slug || project.id;
+            return (
+              <ProjectCard
+                key={project.id}
+                title={project.title}
+                description={project.description}
+                videoUrl={project.videoUrl}
+                slug={projectSlug}
+                delay={idx * 0.1}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
