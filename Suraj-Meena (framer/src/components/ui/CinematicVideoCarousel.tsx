@@ -307,8 +307,9 @@ export const CinematicVideoCarousel: React.FC<CinematicVideoCarouselProps> = ({
     );
   }
 
-  const isMobile = windowWidth < 640;
-  const isTablet = windowWidth >= 640 && windowWidth < 1024;
+  const isNarrowMobile = windowWidth < 390;
+  const isMobile = windowWidth < 600;
+  const isTablet = windowWidth >= 600 && windowWidth < 1024;
 
   return (
     <section id="video-showcase" className={styles.carouselSection} aria-label="3D Video Carousel">
@@ -379,7 +380,7 @@ export const CinematicVideoCarousel: React.FC<CinematicVideoCarouselProps> = ({
             let zIndexVal = 10;
 
             if (isMobile) {
-              // Mobile curve layout
+              // Mobile curve layout (< 600px)
               if (offset === 0) {
                 xOffset = 0;
                 scaleVal = 1;
@@ -387,25 +388,29 @@ export const CinematicVideoCarousel: React.FC<CinematicVideoCarouselProps> = ({
                 zVal = 0;
                 opacityVal = 1;
                 zIndexVal = 10;
-              } else if (offset === -1) {
-                xOffset = -155;
-                scaleVal = 0.76;
-                rotateYVal = 22;
-                zVal = -60;
-                opacityVal = 0.72;
-                zIndexVal = 5;
-              } else if (offset === 1) {
-                xOffset = 155;
-                scaleVal = 0.76;
-                rotateYVal = -22;
-                zVal = -60;
-                opacityVal = 0.72;
-                zIndexVal = 5;
+              } else if (offset === -1 || offset === 1) {
+                if (isNarrowMobile) {
+                  // Under 390px: hide adjacent cards to prevent clipping and cramped viewport
+                  xOffset = offset > 0 ? 140 : -140;
+                  scaleVal = 0.72;
+                  rotateYVal = offset > 0 ? -10 : 10;
+                  zVal = -60;
+                  opacityVal = 0;
+                  zIndexVal = 0;
+                } else {
+                  // 390px to 599px: subtle peek with reduced perspective/rotation
+                  xOffset = offset > 0 ? 135 : -135;
+                  scaleVal = 0.74;
+                  rotateYVal = offset > 0 ? -12 : 12;
+                  zVal = -50;
+                  opacityVal = 0.35;
+                  zIndexVal = 5;
+                }
               } else {
-                xOffset = offset > 0 ? 280 : -280;
-                scaleVal = 0.55;
-                rotateYVal = offset > 0 ? -30 : 30;
-                zVal = -120;
+                xOffset = offset > 0 ? 240 : -240;
+                scaleVal = 0.5;
+                rotateYVal = offset > 0 ? -20 : 20;
+                zVal = -100;
                 opacityVal = 0;
                 zIndexVal = 0;
               }

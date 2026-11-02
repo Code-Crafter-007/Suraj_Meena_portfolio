@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   motion,
   useMotionValue,
@@ -62,9 +62,13 @@ export const InteractiveWordmark: React.FC = () => {
   const r3 = useMotionValue(0);
   const r4 = useMotionValue(0);
 
-  const xValues = [x0, x1, x2, x3, x4];
-  const yValues = [y0, y1, y2, y3, y4];
-  const rotationValues = [r0, r1, r2, r3, r4];
+  const xValues = useMemo(() => [x0, x1, x2, x3, x4], [x0, x1, x2, x3, x4]);
+  const yValues = useMemo(() => [y0, y1, y2, y3, y4], [y0, y1, y2, y3, y4]);
+  const rotationValues = useMemo(
+    () => [r0, r1, r2, r3, r4],
+    [r0, r1, r2, r3, r4]
+  );
+  const animateRef = useRef<((time: number) => void) | null>(null);
 
   const stopAnimation = useCallback(() => {
     if (animationRef.current !== null) {
@@ -257,19 +261,27 @@ export const InteractiveWordmark: React.FC = () => {
     });
 
     if (active) {
-      animationRef.current = requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame((t) =>
+        animateRef.current?.(t)
+      );
     } else {
       animationRef.current = null;
       previousTime.current = 0;
     }
   }, [xValues, yValues, rotationValues]);
 
+  useEffect(() => {
+    animateRef.current = animate;
+  }, [animate]);
+
   const startAnimation = useCallback(() => {
     if (animationRef.current === null) {
       previousTime.current = 0;
-      animationRef.current = requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame((t) =>
+        animateRef.current?.(t)
+      );
     }
-  }, [animate]);
+  }, []);
 
   // Initial measurements and resize handling
   useEffect(() => {
@@ -338,7 +350,6 @@ export const InteractiveWordmark: React.FC = () => {
         const power = Math.pow(proximity, 1.4);
 
         const nx = dx / distance;
-        const ny = dy / distance;
 
         // Strong upward impulse
         body.vy -= JUMP_IMPULSE * power;

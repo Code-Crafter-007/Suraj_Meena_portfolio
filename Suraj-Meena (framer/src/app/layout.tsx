@@ -26,13 +26,23 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://suraj-meena.framer.website'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://suraj-meena.vercel.app'
+  ),
   title: 'Suraj Meena | Visual Editor & Motion Designer',
   description:
     'Portfolio of Suraj Meena. Video editor and motion designer turning raw footage into work that holds attention.',
   icons: {
-    icon: '/assets/icons/favicon-suraj.png',
-    apple: '/assets/icons/apple-touch-icon.png',
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/assets/icons/favicon-suraj.png', sizes: '64x64', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/assets/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
   },
   openGraph: {
     title: 'Suraj Meena | Visual Editor',

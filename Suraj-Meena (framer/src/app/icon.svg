@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <clipPath id="squircle">
+      <rect x="0" y="0" width="512" height="512" rx="112" ry="112" />
+    </clipPath>
+  </defs>
+  <!-- Cream / Off-white background -->
+  <rect width="512" height="512" rx="112" ry="112" fill="#FAF7F3" />
+  
+  <!-- Subtle interior border for high-end polish -->
+  <rect x="2" y="2" width="508" height="508" rx="110" ry="110" fill="none" stroke="#E6E0D8" stroke-width="4" />
+  
+  <!-- Bold Editorial S Monogram -->
+  <path d="M 346 168 C 346 132 316 108 262 108 C 204 108 168 136 164 178 L 222 184 C 224 162 238 152 262 152 C 286 152 298 161 298 174 C 298 188 288 196 250 206 C 196 220 160 242 160 292 C 160 350 206 380 266 380 C 330 380 366 348 368 298 L 310 294 C 308 322 292 336 266 336 C 240 336 224 324 224 308 C 224 290 236 282 278 270 C 328 256 346 234 346 168 Z" fill="#111111" />
+</svg>

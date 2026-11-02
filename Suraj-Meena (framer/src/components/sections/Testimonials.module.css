@@ -79,6 +79,7 @@
   overflow: hidden;
   position: relative;
   padding: 8px 0;
+  touch-action: pan-y;
 }
 
 .carouselTrack {
@@ -88,6 +89,7 @@
   gap: 20px;
   width: 100%;
   will-change: transform;
+  touch-action: pan-y;
 }
 
 .cardItem {
