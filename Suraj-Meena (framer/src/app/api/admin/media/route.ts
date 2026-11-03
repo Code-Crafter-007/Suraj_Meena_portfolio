@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { verifyAdminSessionToken } from '@/lib/auth';
 import { getMedia, saveMedia, updateMedia, deleteMedia } from '@/lib/cms';
 
@@ -8,8 +9,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const media = await getMedia();
-  return NextResponse.json({ media });
+  try {
+    const media = await getMedia();
+    return NextResponse.json({ media });
+  } catch (err) {
+    return NextResponse.json({ error: 'Failed to fetch media', details: String(err) }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -25,6 +30,14 @@ export async function POST(req: NextRequest) {
     }
 
     const saved = await saveMedia(body);
+
+    try {
+      revalidatePath('/', 'layout');
+      if (saved.projectSlug) {
+        revalidatePath(`/projects/${saved.projectSlug}`);
+      }
+    } catch {}
+
     return NextResponse.json({ success: true, media: saved });
   } catch (err) {
     return NextResponse.json({ error: 'Failed to save media', details: String(err) }, { status: 500 });
@@ -44,6 +57,14 @@ export async function PATCH(req: NextRequest) {
     }
 
     const updated = await updateMedia(id, updates);
+
+    try {
+      revalidatePath('/', 'layout');
+      if (updated?.projectSlug) {
+        revalidatePath(`/projects/${updated.projectSlug}`);
+      }
+    } catch {}
+
     return NextResponse.json({ success: true, media: updated });
   } catch (err) {
     return NextResponse.json({ error: 'Failed to update media', details: String(err) }, { status: 500 });
@@ -63,7 +84,16 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: 'Media ID is required' }, { status: 400 });
   }
 
-  await deleteMedia(id);
-  return NextResponse.json({ success: true, id });
+  try {
+    await deleteMedia(id);
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch {}
+
+    return NextResponse.json({ success: true, id });
+  } catch (err) {
+    return NextResponse.json({ error: 'Failed to delete media', details: String(err) }, { status: 500 });
+  }
 }
 

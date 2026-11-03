@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { verifyAdminSessionToken } from '@/lib/auth';
 import { getProjects, saveProject, deleteProject } from '@/lib/cms';
 
@@ -8,8 +9,15 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const projects = await getProjects(false);
-  return NextResponse.json({ projects });
+  try {
+    const projects = await getProjects(false);
+    return NextResponse.json({ projects });
+  } catch (err) {
+    return NextResponse.json(
+      { error: 'Failed to fetch projects', details: String(err) },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -25,6 +33,18 @@ export async function POST(req: NextRequest) {
     }
 
     const saved = await saveProject(body);
+
+    // On-demand revalidation
+    try {
+      revalidatePath('/');
+      revalidatePath('/projects');
+      if (saved.slug) {
+        revalidatePath(`/projects/${saved.slug}`);
+      }
+    } catch (revErr) {
+      console.warn('Revalidation warning:', revErr);
+    }
+
     return NextResponse.json({ success: true, project: saved });
   } catch (err) {
     return NextResponse.json({ error: 'Failed to save project', details: String(err) }, { status: 500 });
@@ -44,7 +64,19 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: 'Project ID is required' }, { status: 400 });
   }
 
-  await deleteProject(id);
-  return NextResponse.json({ success: true, id });
+  try {
+    await deleteProject(id);
+
+    try {
+      revalidatePath('/');
+      revalidatePath('/projects');
+    } catch (revErr) {
+      console.warn('Revalidation warning:', revErr);
+    }
+
+    return NextResponse.json({ success: true, id });
+  } catch (err) {
+    return NextResponse.json({ error: 'Failed to delete project', details: String(err) }, { status: 500 });
+  }
 }
 

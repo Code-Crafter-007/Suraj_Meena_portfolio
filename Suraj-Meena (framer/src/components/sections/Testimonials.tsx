@@ -23,7 +23,7 @@ interface TestimonialsProps {
 
 export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
   const displayItems: TestimonialItem[] =
-    testimonials && testimonials.length > 0 ? testimonials : TESTIMONIALS_DATA;
+    testimonials !== undefined ? testimonials : TESTIMONIALS_DATA;
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(4);

@@ -9,13 +9,13 @@
   },
   "projects": [
     {
-      "id": "tum-aaye-ho",
+      "id": "0245c982-2822-480b-9560-8fcc0c4ab253",
       "slug": "tum-aaye-ho",
       "title": "Tum Aaye Ho",
       "category": "Cinematic / Music Video",
       "year": "2024",
       "description": "Official lyrical music video crafted using Adobe After Effects, Premiere Pro, and Photoshop.",
-      "caseStudy": "Tum Aaye Ho is an expressive lyrical music video project centering around melodic timing, rhythmic cuts, and poetic visual atmosphere. Working closely with the artist, we developed a sensory visual treatment balancing soft typography overlays with high-contrast color grading.\n\nThe timeline demanded meticulous keyframing to sync lyric reveal curves directly to vocal timbre changes. Compositing was achieved through custom After Effects motion typography pipelines coupled with Premiere Pro color matching.",
+      "caseStudy": "Tum Aaye Ho is an expressive lyrical music video project centering around melodic timing, rhythmic cuts, and poetic visual atmosphere. Working closely with the artist, we developed a sensory visual treatment balancing soft typography overlays with high-contrast color grading.\\n\\nThe timeline demanded meticulous keyframing to sync lyric reveal curves directly to vocal timbre changes. Compositing was achieved through custom After Effects motion typography pipelines coupled with Premiere Pro color matching.",
       "videoUrl": "/assets/videos/projects/tum-aaye-ho-preview.mp4",
       "coverUrl": "/assets/images/hero/opengraph-hero.png",
       "tools": [
@@ -29,87 +29,12 @@
       ],
       "creativeProcessEnabled": true,
       "creativeProcessHeading": "Creative Process & Directorial Method",
-      "creativeProcessIntro": "ha,enriegWRBWRBWROUVBWROUVBWUOWRBBWFB",
-      "creativeProcessSteps": [
-        {
-          "id": "step-1793647605987",
-          "title": "Stage 1: EFEW",
-          "description": "EFWEFWEFWEGWEGWWEWEE",
-          "mediaUrl": "https://jdjtcbgmdppznlvgjpdn.supabase.co/storage/v1/object/public/portfolio-media/uploads/1793647617371-Analysisoutput1.png",
-          "mediaType": "image",
-          "caption": "WEFWE",
-          "sortOrder": 1
-        }
-      ],
+      "creativeProcessIntro": "I have started  working on this since  20226",
+      "creativeProcessSteps": [],
       "featured": true,
       "published": true,
       "displayOrder": 1,
-      "createdAt": "2024-05-10T12:00:00.000Z"
-    },
-    {
-      "id": "mm-cafe",
-      "slug": "mm-cafe",
-      "title": "M & M Restro and Cafe",
-      "category": "Commercial / Destination",
-      "year": "2024",
-      "description": "Destination cafe aesthetic lifestyle showcase with sensory rhythm and pacing.",
-      "caseStudy": "Created as an experiential promotional showcase for M & M Restro and Cafe in Gandhinagar. The visual ambition was to capture the acoustic warmth and culinary craftsmanship through dynamic match cuts and warm color grading.\n\nEvery shot was color balanced in DaVinci Resolve with film emulation LUTs, focusing on warm amber highlights and tactile kitchen sound design.",
-      "videoUrl": "/assets/videos/projects/mm-cafe-preview.mp4",
-      "coverUrl": "/assets/images/articles/brand-systems-post.png",
-      "tools": [
-        "Premiere Pro",
-        "DaVinci Resolve",
-        "Sound Design"
-      ],
-      "galleryUrls": [
-        "/assets/images/articles/brand-systems-post.png"
-      ],
-      "featured": true,
-      "published": true,
-      "displayOrder": 2,
-      "createdAt": "2024-08-15T12:00:00.000Z"
-    },
-    {
-      "id": "mazuri",
-      "slug": "mazuri",
-      "title": "Mazuri",
-      "category": "Brand Content / Promo",
-      "year": "2025",
-      "description": "High-tempo culinary promo reel engineered for short-form retention.",
-      "caseStudy": "A high-velocity social promo built for maximum hook retention and kinetic momentum. Combining rapid-fire speed ramps, directional whip transitions, and bass-heavy audio layering, Mazuri demonstrates commercial editing tuned for social algorithms.",
-      "videoUrl": "/assets/videos/projects/mazuri-preview.mp4",
-      "coverUrl": "/assets/images/articles/art-direction-post.png",
-      "tools": [
-        "After Effects",
-        "Sound Design",
-        "Speed Ramping"
-      ],
-      "galleryUrls": [],
-      "featured": true,
-      "published": true,
-      "displayOrder": 3,
-      "createdAt": "2025-01-20T12:00:00.000Z"
-    },
-    {
-      "id": "nav-nirmaan",
-      "slug": "nav-nirmaan",
-      "title": "Nav Nirmaan",
-      "category": "Documentary / Non-Profit",
-      "year": "2024",
-      "description": "Empathetic social documentary spotlighting impactful community initiatives.",
-      "caseStudy": "An empathetic documentary edit created for Nav Nirmaan NGO. The edit focuses on authentic human connection, patient pacing, and natural light grading that honors the subjects and their community contributions.",
-      "videoUrl": "/assets/videos/projects/nav-nirmaan-preview.mp4",
-      "coverUrl": "/assets/images/hero/opengraph-hero.png",
-      "tools": [
-        "Premiere Pro",
-        "Color Grading",
-        "Interview Pacing"
-      ],
-      "galleryUrls": [],
-      "featured": true,
-      "published": true,
-      "displayOrder": 4,
-      "createdAt": "2024-11-05T12:00:00.000Z"
+      "createdAt": "2026-11-03T06:15:11.39103+00:00"
     }
   ],
   "articles": [

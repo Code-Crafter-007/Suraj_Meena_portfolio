@@ -1,5 +1,8 @@
 import React from 'react';
 import { getProjects, getArticles, getTestimonials, getSiteSettings } from '@/lib/cms';
+
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroBioSection } from '@/components/sections/HeroBioSection';
 import { Manifesto } from '@/components/sections/Manifesto';

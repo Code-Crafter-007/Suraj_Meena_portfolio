@@ -22,7 +22,7 @@ interface FeaturedWorkProps {
 
 export const FeaturedWork: React.FC<FeaturedWorkProps> = ({ projects }) => {
   const displayProjects: WorkItem[] =
-    projects && projects.length > 0 ? projects : PROJECTS_DATA;
+    projects !== undefined ? projects : PROJECTS_DATA;
 
   return (
     <section className={styles.projectsSection} id="work-section">

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { verifyAdminSessionToken } from '@/lib/auth';
 import { getArticles, saveArticle, deleteArticle } from '@/lib/cms';
 
@@ -8,8 +9,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const articles = await getArticles(false);
-  return NextResponse.json({ articles });
+  try {
+    const articles = await getArticles(false);
+    return NextResponse.json({ articles });
+  } catch (err) {
+    return NextResponse.json({ error: 'Failed to fetch articles', details: String(err) }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -25,6 +30,15 @@ export async function POST(req: NextRequest) {
     }
 
     const saved = await saveArticle(body);
+
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/thoughts');
+      if (saved.slug) {
+        revalidatePath(`/thoughts/${saved.slug}`);
+      }
+    } catch {}
+
     return NextResponse.json({ success: true, article: saved });
   } catch (err) {
     return NextResponse.json({ error: 'Failed to save article', details: String(err) }, { status: 500 });
@@ -44,7 +58,17 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: 'Article ID is required' }, { status: 400 });
   }
 
-  await deleteArticle(id);
-  return NextResponse.json({ success: true, id });
+  try {
+    await deleteArticle(id);
+
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/thoughts');
+    } catch {}
+
+    return NextResponse.json({ success: true, id });
+  } catch (err) {
+    return NextResponse.json({ error: 'Failed to delete article', details: String(err) }, { status: 500 });
+  }
 }
 

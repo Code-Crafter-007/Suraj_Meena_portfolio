@@ -9,6 +9,9 @@ import { getArticleBySlug, getArticles } from '@/lib/cms';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import styles from './thoughtDetail.module.css';
 
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { verifyAdminSessionToken } from '@/lib/auth';
 import { getTestimonials, saveTestimonial, deleteTestimonial } from '@/lib/cms';
 
@@ -8,8 +9,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const testimonials = await getTestimonials();
-  return NextResponse.json({ testimonials });
+  try {
+    const testimonials = await getTestimonials();
+    return NextResponse.json({ testimonials });
+  } catch (err) {
+    return NextResponse.json({ error: 'Failed to fetch testimonials', details: String(err) }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -25,6 +30,11 @@ export async function POST(req: NextRequest) {
     }
 
     const saved = await saveTestimonial(body);
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch {}
+
     return NextResponse.json({ success: true, testimonial: saved });
   } catch (err) {
     return NextResponse.json({ error: 'Failed to save testimonial', details: String(err) }, { status: 500 });
@@ -44,7 +54,16 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: 'Testimonial ID is required' }, { status: 400 });
   }
 
-  await deleteTestimonial(id);
-  return NextResponse.json({ success: true, id });
+  try {
+    await deleteTestimonial(id);
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch {}
+
+    return NextResponse.json({ success: true, id });
+  } catch (err) {
+    return NextResponse.json({ error: 'Failed to delete testimonial', details: String(err) }, { status: 500 });
+  }
 }
 

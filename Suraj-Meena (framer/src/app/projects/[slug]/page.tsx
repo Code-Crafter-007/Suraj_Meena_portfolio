@@ -11,6 +11,9 @@ import { CinematicVideoCarousel } from '@/components/ui/CinematicVideoCarousel';
 import { CreativeProcess } from '@/components/sections/CreativeProcess';
 import styles from './projectDetail.module.css';
 
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

@@ -12,6 +12,21 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      return NextResponse.json(
+        { error: 'Please provide a valid email address.' },
+        { status: 400 }
+      );
+    }
+
+    if (name.trim().length > 120 || project.trim().length > 5000) {
+      return NextResponse.json(
+        { error: 'Message payload exceeds reasonable length limit.' },
+        { status: 400 }
+      );
+    }
+
     const saved = await saveContactMessage({
       name: name.trim(),
       email: email.trim(),

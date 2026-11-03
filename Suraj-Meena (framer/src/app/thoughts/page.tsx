@@ -5,6 +5,9 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import ThoughtsArchiveClient from './ThoughtsArchiveClient';
 
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Thoughts & Journal | Suraj Meena',
   description:
